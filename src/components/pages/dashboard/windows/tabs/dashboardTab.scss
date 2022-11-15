@@ -1,0 +1,35 @@
+@import "../../../../../sass/globals";
+
+#dashboard-tab {
+
+    .counters-container {
+        display: flex;
+        flex-flow: column;
+        gap: 10px;
+
+        .counter {
+            display: flex;
+            gap: 20px;
+    
+            width: fit-content;
+            width: 200px;
+            height: fit-content;
+            height: 80px;
+            padding: 20px;
+    
+            border-radius: 5px;
+            background-color: #9ADBFF;
+    
+            span {
+                font-weight: bold;
+                font-family: $inter;
+
+                &:nth-child(2) {
+                    margin-left: auto;
+                }
+            }
+        }
+    }
+
+
+}

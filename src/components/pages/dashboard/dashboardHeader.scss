@@ -1,0 +1,184 @@
+@import "./../../../sass/_globals.scss";
+
+#dashboard-header {
+    position: relative;
+
+    display: flex;
+    flex-flow: column;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 15px;
+
+    background-color: rgb(240, 244, 248);
+    border-right: 2px solid rgb(240, 244, 248);
+
+    // outline: 1px solid red;
+
+    transition: border-color 0.2s,
+                background-color 0.2s;
+    
+    #tuy {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        height: 60px;
+        
+        #tuy-logo {
+            width: 60px;
+            height: 60px;
+        }
+        
+        #tuy-title {
+            visibility: visible;
+            opacity: 1;
+
+            transition: opacity 0.2s 0.2s,
+                        visibility 0s 0.2s;
+
+            h1 {
+                font-family: $inrioSerif;
+                font-size: 16px;
+            }
+            h2 {
+                font-family: $inrioSerif;
+                font-size: 14px;
+            }
+        }
+    }
+
+    #admin-container {
+        display: flex;
+        flex-flow: column;
+        gap: 10px;
+
+        height: 100px;
+        padding: 15px;
+        margin-top: 20px;
+
+        opacity: 1;
+        visibility: visible;
+
+        transition: opacity 0.2s 0.2s,
+                    visibility 0s 0.2s,
+                    height 0.2s,
+                    margin-top 0.2s,
+                    padding 0.2s;
+
+        label {
+            font-family: $inter;
+            font-weight: bold;
+        }
+        
+        #admin-email {
+            width: fit-content;
+            padding: 10px;
+
+            border-radius: 5px;
+            background-color: #9ADBFF;
+            font-family: $inter;
+        }
+    }
+
+    #main-nav {
+        display: flex;
+        flex-flow: column;
+        gap: 4px;
+
+        width: 100%;
+        margin-top: 20px;
+        padding-left: 8px;
+        padding-right: 8px;
+
+        transition: align-items 0s 0.2s;
+    }
+
+    #collapse-radio {
+        display: none;
+    }
+
+    #collapse-radio-label {
+        position: absolute;
+
+        top: 125px;
+        right: 0;
+        transform: translateX(50%);
+
+        width: 30px;
+        height: 30px;
+
+        border: none;
+        border-radius: 50%;
+
+        background-color: white;
+
+        box-shadow: 0px 2px 3px 1px rgba(128, 128, 128, 0.3);
+
+        transition: background-color 0.2s;
+
+        &::before {
+            content: '';
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: rotate(180deg);
+
+            display: block;
+
+            width: 100%;
+            height: 100%;
+
+            border-radius: 50%;
+
+            background-color: transparent;
+            background-image: url("../../../resource/svg/arrowhead.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 30%;
+
+            // transition: transform 0.2s;
+        }
+
+        &:hover {
+            background-color: gray;
+        }
+    }
+
+    &.collapse {
+        border-color: white;
+        background-color: white;
+
+        transition: none;
+
+        #tuy {
+            #tuy-title {
+                opacity: 0;
+                visibility: hidden;
+
+                transition: none;
+            }
+        }
+
+        #admin-container {
+            height: 0;
+            margin-top: 0;
+            padding: 0;
+            opacity: 0;
+            visibility: hidden;
+
+            transition: height 0.2s,
+                        margin-top 0.2s,
+                        padding 0.2s;
+        }
+
+        #collapse-radio-label {
+            &::before {
+                transform: rotate(0deg);
+            }
+        }
+    }
+
+}

@@ -1,0 +1,37 @@
+@import "./../../../../sass/globals";
+
+.window {
+    display: flex;
+    flex-flow: column;
+    gap: 30px;
+
+    width: 100%;
+    height: fit-content;
+    min-height: 100vh;
+    max-height: 100vh;
+    padding: 30px;
+
+    overflow: auto;
+
+    h3 {
+        font-size: 36px;
+        font-family: $inter;
+    }
+
+    .tabs-btn-container {
+        display: flex;
+        gap: 10px;
+    }
+
+    .tabs-btn-container {
+        width: 100%;
+        height: fit-content;
+    }
+
+    .tab {
+        width: 100%;
+        height: fit-content;
+
+        // outline: 1px solid red;
+    }
+}

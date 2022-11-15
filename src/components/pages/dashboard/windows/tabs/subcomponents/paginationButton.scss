@@ -1,0 +1,12 @@
+@import "../../../../../../sass/globals";
+
+.pagination-btn {
+    width: 36px;
+    height: 36px;
+
+    background-color: white;
+
+    &.current {
+        background-color: $active-background;
+    }
+}

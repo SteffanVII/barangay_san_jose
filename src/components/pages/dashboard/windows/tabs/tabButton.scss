@@ -1,0 +1,39 @@
+@import "../../../../../sass/globals";
+
+.tab-button {
+    width: fit-content;
+    height: fit-content;
+
+    input[type=radio] {
+        display: none;
+    }
+
+    label {
+        width: fit-content;
+        height: fit-content;
+        padding: 10px 16px 10px 16px;
+
+        border-radius: 40px;
+
+        background-color: rgba(128, 128, 128, 0.2);
+        font-family: $inter;
+        font-weight: 500;
+
+        transition: color 0.2s,
+                    background-color 0.2s;
+
+        &:hover {
+            color: white;
+            background-color: #6F94A9;
+        }
+    }
+
+    input[type=radio] {
+        display: none;
+
+        &:checked + label {
+            background-color: #80C8F0;
+        }
+    }
+    
+}
