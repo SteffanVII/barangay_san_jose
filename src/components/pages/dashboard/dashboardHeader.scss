@@ -1,6 +1,7 @@
 @import "./../../../sass/_globals.scss";
 
 #dashboard-header {
+    z-index: 3;
     position: relative;
 
     display: flex;

@@ -3,16 +3,219 @@
 #residents-tab {
     display: flex;
     flex-flow: column;
-    gap: 40px;
+    gap: 0px;
+
+    .filters-container {
+        display: flex;
+        flex-flow: column;
+        gap: 20px;
+
+        width: 100%;
+        height: 0px;
+        padding: 0px;
+
+        opacity: 0;
+        visibility: visible;
+
+        // outline: 1px solid red;
+
+        transition: height 0.2s 0.2s,
+                    padding 0.2s 0.2s,
+                    opacity 0.2s,
+                    visibility 0s 0.2s;
+
+        span {
+            font-size: 20px;
+            font-family: $inter;
+            font-weight: 600;
+        }
+
+        .filters-wrapper {
+            display: flex;
+            gap: 5px;
+
+            label {
+                font-size: 13px;
+                font-family: $inter;
+                font-weight: 500;
+            }
+
+            input[type=checkbox] {
+                margin-left: 10px;
+            }
+
+            input[type=number] {
+                width: 80px;
+
+                padding: 10px;
+
+                border: none;
+                border-radius: 4px;
+                font-family: $inter;
+                background-color: rgb(240, 244, 248);
+
+                &:disabled {
+                    background-color: rgb(213, 225, 238);
+
+                    &::placeholder {
+                        color: rgb(182, 182, 182);
+                    }
+                }
+            }
+
+            .filter-wrapper {
+                display: flex;
+                flex-flow: column;
+                // justify-content: center;
+                gap: 10px;
+
+                padding: 20px;
+                border-radius: 5px;
+
+                transition: background-color 0.2s,
+                            transform 0.2s,
+                            box-shadow 0.2s;
+
+                &__name {
+                    
+                    input[type=text] {
+                        width: 180px;
+        
+                        padding: 10px;
+        
+                        border: none;
+                        border-radius: 4px;
+                        font-family: $inter;
+                        background-color: rgb(240, 244, 248);
+        
+                        &:disabled {
+                            background-color: rgb(213, 225, 238);
+        
+                            &::placeholder {
+                                color: rgb(182, 182, 182);
+                            }
+                        }
+                    }
+                }
+                
+                &__age {
+    
+                    .age-filter-group {
+    
+                        input {
+                            margin-left: 10px;
+                        }
+    
+                        &:nth-child(4) {
+    
+                            input {
+                                margin-left: 13px;
+                            }
+                        }
+                    }
+                }
+
+                &__gender {
+                    select {
+                        padding: 10px;
+
+                        border: none;
+                        border-radius: 5px;
+                        font-family: $inter;
+                        background-color: rgb(240, 244, 248);
+
+                        &:disabled {
+                            background-color: rgb(213, 225, 238);
+
+                            &::placeholder {
+                                color: rgb(182, 182, 182);
+                            }
+                        }
+                    }
+                }
+
+                &__purok {
+                    input[type=number] {
+                        width: 100px;
+                    }
+                }
+
+                &:hover {
+                    transform: translateY(-5px);
+                    background-color: rgb(250, 250, 250);
+                    // box-shadow: 0px 2px 2px 1px rgba(53, 121, 96, 0.349);
+                }
+            }
+        }
+
+
+        .filter-buttons-container {
+            button {
+                padding: 10px;
+                padding-left: 14px;
+                padding-right: 14px;
+
+                border: none;
+                border-radius: 40px;
+                font-family: $inter;
+                font-size: 14px;
+                font-weight: 700;
+
+                transition: background-color 0.2s,
+                            color 0.2s,
+                            transform 0.2s;
+
+                &:hover {
+                    background-color: rgb(221, 82, 82);
+                    color: white;
+                }
+
+                &:last-child {
+                    margin-left: 10px;
+
+                    &:hover {
+                        background-color: rgb(167, 219, 89);
+                        color: white;
+                    }
+                }
+
+                &:active {
+                    transform: translateY(-4px);
+                }
+            }
+        }
+
+        &.show {
+            height: fit-content;
+            height: 349px;
+            padding: 12px;
+
+            opacity: 1;
+            visibility: visible;
+
+            transition: height 0.2s,
+                        padding 0.2s,
+                        opacity 0.2s 0.2s;
+        }
+    }
 
     .entries-controller {
-        position: relative;
+        // position: relative;
+        position: sticky;
+        top: calc(0% - 30px);
+        z-index: 1;
 
         display: flex;
+        align-items: center;
         gap: 14px;
 
         width: 100%;
         height: fit-content;
+        // padding-top: 14px;
+        // padding-bottom: 14px;
+        padding: 14px;
+
+        background-color: white;
 
         // outline: 1px solid red;
 
@@ -32,55 +235,23 @@
 
             display: flex;
             align-items: center;
-            gap: 14px;
+
+            label {
+                position: relative;
+                padding: 10px;
+                border-radius: 5px;
+
+                background-color: rgb(240, 244, 248);
+
+                transition: background-color 0.2s;
+            }
 
             input[type=checkbox] {
-                position: relative;
-
-                width: 50px;
-                height: 26px;
-
-                visibility: hidden;
-
-                &::before {
-                    content: '';
-
-                    position: absolute;
-                    
-                    width: 50px;
-                    height: 26px;
-
-                    border-radius: 13px;
-                    background-color: rgb(166, 180, 194);
-                    visibility: visible;
-
-                    transition: background-color 0.2s;
-                }
-
-                &::after {
-                    content: '';
-
-                    position: absolute;
-                    top: 2px;
-                    left: 2px;
-                    
-                    width: 22px;
-                    height: 22px;
-
-                    border-radius: 50%;
-                    background-color: white;
-                    visibility: visible;
-
-                    transition: transform 0.2s;
-                }
-
+                display: none;
+                
                 &:checked {
-                    &::before {
-                        background-color: #63ABD3;
-                    }
-
-                    &::after {
-                        transform: translateX(calc(100% + 2px));
+                    & + label {
+                        background-color: $active-background;
                     }
                 }
             }
@@ -125,7 +296,7 @@
 
         .entry-pagination-container {
             display: flex;
-            margin-left: auto;
+            // margin-left: auto;
 
             button  {
                 position: relative;
@@ -174,6 +345,10 @@
                     }
                 }
 
+                &.pagination-btn {
+                    transition: transform 0.2s;
+                }
+
                 
                 &:hover {
                     background-color: rgb(240, 244, 248);
@@ -184,7 +359,39 @@
                 }
 
                 &.current {
+                    transform: translateY(-3px);
                     background-color: $active-background;
+                }
+            }
+
+        }
+
+        .entry-btns-container {
+            margin-left: auto;
+            
+            #add-resident-btn {
+                padding: 10px;
+                padding-left: 14px;
+                padding-right: 14px;
+
+                border: none;
+                border-radius: 40px;
+                font-family: $inter;
+                font-weight: 600;
+                background-color: #6BEEE6;
+                
+                transition: background-color 0.2s,
+                            transform 0.2s;
+                
+                &:hover {
+                    background-color: #a8f3ee;
+                }
+                
+                &:active {
+                    transform: translateY(-5px);
+                    background-color: #6BEEE6;
+
+                    transition: transform 0.2s;
                 }
             }
 
@@ -195,22 +402,26 @@
         width: 100%;
         border: none;
         thead {
-            top: calc(0% - 30px);
+            top: calc(0% - 30px + 65px);
             position: sticky;
             z-index: 1;
+
+            background-color: white;
             tr {
                 th {
                     background-color: $hover-background;
+                    background-color: transparent;
                     button {
                         width: 100%;
                         padding: 10px;
                         
                         border: none;
-                        color: white;
+                        color: $default-color;
                         background-color: transparent;
+                        text-align: left;
                         font-size: 14px;
                         font-family: $inter;
-                        font-weight: 700;
+                        font-weight: 600;
                     }
 
                     &:last-child {
@@ -225,50 +436,39 @@
 
                 transition: background-color 0.2s;
                 td {
+                    position: relative;
+
                     padding: 16px;
                     
-                    background-color: rgb(240, 244, 248);
-                    text-align: center;
                     font-family: $inter;
-
+                    font-size: 14px;
+                    background-color: rgb(240, 244, 248);
+                    
                     overflow: hidden;
+                    
+                    &:first-child {
+                        position: relative;
 
-                    &:last-child {
-                        z-index: 2;
-                        position: absolute;
-                        transform: translateX(-120px);
-
-                        width: 130px;
-
-                        background-color: transparent;
-                        opacity: 0;
-                        visibility: hidden;
-
-                        transition: opacity 0.2s,
-                                    visibility 0s 0.2s,
-                                    transform 0.2s;
+                        width: 80px;
+                        overflow: hidden;
 
                         button {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            transform: translateX(-60px);
+
                             width: 100%;
                             height: 100%;
-                            padding-top: 10px;
-                            padding-bottom: 10px;
 
-                            border: none;
-                            border-radius: 40px;
-                            background-color: rgb(79, 180, 143);
                             color: white;
-                            font-family: $inter;
-                            font-weight: 700;
-                            box-shadow: 0px 2px 4px 1px rgba(53, 121, 96, 0.726);
+                            background-color: $hover-background;
+                            border: none;
+                            
+                            pointer-events: none;
 
-                            transition: background-color 0.2s,
-                                        color 0.2s;
-
-                            &:hover {
-                                background-color: $hover-background;
-                                color: white;
-                            }
+                            transition: transform 0.2s,
+                                        background-color 0.2s;
                         }
                     }
                 }
@@ -276,19 +476,53 @@
                 &:hover {
                     td {
                         background-color: $active-background;
-                        &:last-child {
-                            transform: translate(-100px, -40px);
-                            opacity: 1;
-                            visibility: visible;
+                        &:first-child {
+                            button {
+                                background-color: $row-more-button-background;
+                                transform: translateX(0px);
+                                pointer-events: all;
 
-                            background-color: transparent;
+                                &:active {
+                                    background-color: $active-background;
 
-                            transition: opacity 0.2s,
-                                        transform 0.2s;
+                                    transition: none;
+                                }
+                            }
                         }
                     }
                 }
             }
+        }
+    }
+
+    .float-container {
+        z-index: 2;
+        position: absolute;
+        position: fixed;
+        top: 0;
+        right: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: calc(100% - 330px);
+        height: 100vh;
+
+        background-color: rgba(128, 128, 128, 0.5);
+        background-color: transparent;
+
+        overflow: hidden;
+
+        pointer-events: none;
+
+        &.collapse {
+            width: calc(100% - 90px);
+        }
+
+        .float-title {
+            font-family: $inter;
+            font-size: 24px;
         }
     }
 

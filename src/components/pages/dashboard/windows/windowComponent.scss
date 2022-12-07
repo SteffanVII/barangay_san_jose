@@ -1,6 +1,8 @@
 @import "./../../../../sass/globals";
 
 .window {
+    position: relative;
+
     display: flex;
     flex-flow: column;
     gap: 30px;
@@ -12,6 +14,10 @@
     padding: 30px;
 
     overflow: auto;
+
+    * {
+        color: #515151;
+    }
 
     h3 {
         font-size: 36px;

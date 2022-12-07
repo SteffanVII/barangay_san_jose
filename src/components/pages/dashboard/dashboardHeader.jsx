@@ -48,7 +48,9 @@ function DashboardHeader() {
             <nav id="main-nav">
                 <MainNavButton title={"Dashboard"} value={tabs.dashboard} />
                 <MainNavButton title={"Announcement"} value={tabs.announcement} />
+                <MainNavButton title={"Appointments"} value={tabs.appointments} />
                 <MainNavButton title={"Residents"} value={tabs.residents} />
+                <MainNavButton title={"Requests Manager"} value={tabs.requestsManager} />
                 <MainNavButtonDropdown title={"Audit"} children={new Map([
                     [ tabs.loghistory,  { title : "Log History", noicon : true,  }],
                     [ tabs.appointmentTimestamps, { title : "Appointment Timestamps", noicon : true }]

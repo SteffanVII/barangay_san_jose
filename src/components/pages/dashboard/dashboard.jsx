@@ -10,13 +10,17 @@ import TimestampsTab from "./windows/tabs/timestampsTab";
 import ResidentsTab from "./windows/tabs/residentsTab";
 import { authenticate } from "../../../server/authenthication";
 import { useNavigate } from "react-router-dom";
+import AppointmentsTab from "./windows/tabs/appointmentsTab";
+import RequestsManagerTab from "./windows/tabs/requestsManagerTab";
 
 export const tabs = {
     dashboard : 1,
     announcement : 2,
     residents : 3,
     loghistory : 4,
-    appointmentTimestamps : 5
+    appointmentTimestamps : 5,
+    appointments : 6,
+    requestsManager : 7
 }
 
 export const RdashboardDispatchTypes = {
@@ -82,6 +86,22 @@ function Rdashboard( state, action ) {
                         }],
                     ])}/>
                     break;
+                case tabs.appointments:
+                    state.windowcomp = <WindowComponent title={"Appointments"} tabs={new Map([
+                        [tabs.appointments, {
+                            title : "Appointments",
+                            component : <AppointmentsTab/>
+                        }],
+                    ])}/>
+                    break;
+                case tabs.requestsManager:
+                    state.windowcomp = <WindowComponent title={"Requests manager"} tabs={new Map([
+                        [tabs.requestsManager, {
+                            title : "Requests Manager",
+                            component : <RequestsManagerTab/>
+                        }]
+                    ])}/>
+                    break;
                 default:
                     break;
             }
@@ -101,7 +121,7 @@ function DashboardPage() {
                 component : <DashboardTab/>
             }]
         ])}/>,
-        collapse : true
+        collapse : false
     })
 
     const [ auth, setAuth ] = useState(false);

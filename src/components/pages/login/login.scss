@@ -1,14 +1,25 @@
 @import "./../../../sass/globals";
 
 #login-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
     gap: 40px;
 
-    min-height: 100%;
+    padding: 50px;
+    // border-radius: 10px;
 
+    // min-height: 100%;
+    width: fit-content;
+    height: fit-content;
+
+    background-color: white;
     color: $default-color;
 
     header {
