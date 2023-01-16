@@ -1,0 +1,256 @@
+.request-viewer {
+    position: relative;
+                
+    margin-top: 20px;
+
+    min-height: 200px;
+
+    .confirm-request-action {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        pointer-events: none;
+
+        transition: background-color 0.13s;
+        
+        .confirm-request-action-buttons {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 0%);
+    
+            width: 200px;
+    
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0px 2px 5px 4px rgba(112, 112, 112, 0.2);
+    
+            opacity: 0;
+            visibility: hidden;
+    
+            overflow: hidden;
+    
+            transition: opacity 0.13s,
+                        transform 0.13s,
+                        visibility 0s 0.13s;
+            button {
+                padding: 10px;
+    
+                width: 50%;
+                // color: white;
+    
+                border: none;
+    
+                &:nth-of-type(1) {
+                    background-color: rgb(136, 234, 136);
+                    
+                    &:hover {
+                        background-color: rgb(118, 201, 118);
+                    }
+                }
+                
+                &:nth-of-type(2) {
+                    background-color: rgb(234, 123, 123);
+                    
+                    &:hover {
+                        background-color: rgb(201, 105, 105);
+                    }
+                }
+            }
+        }
+        
+        span {
+            width: 100%;
+            height: 50px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-weight: 500;
+        }
+
+        &.show {
+            background-color: rgba(128, 128, 128, 0.5);
+            pointer-events: all;
+
+            .confirm-request-action-buttons {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+                visibility: visible;
+    
+                transition: opacity 0.13s,
+                            transform 0.13s;
+            }
+        }
+    }
+    
+    .request-viewer-wrapper {
+        display: flex;
+        flex-flow: column;
+        gap: 10px;
+        
+        border-left: 15px solid black;
+        padding: 20px;
+
+        .request-info-wrapper {
+            display: flex;
+            flex-flow: column;
+            gap: 10px;
+
+            span {
+                &:nth-child(1) {
+                    display: block;
+
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                }
+
+                &:nth-child(2) {
+                    width: fit-content;
+                    margin-left: 20px;
+                }
+            }
+
+            &.request-id {
+                span {
+                    &:nth-child(2) {
+                        width: fit-content;
+
+                        padding: 5px;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        border-radius: 4px;
+                        background-color: gray;
+                        color: white;
+                        font-size: 18px;
+                        font-weight: 600;
+                    }
+                }
+            }
+
+            &.request-type {
+                width: fit-content;
+
+                span {
+                    &:nth-child(2) {
+                        padding: 5px;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        border-radius: 4px;
+                        border: 1px solid black;
+                        background-color: #8bcafe;
+                        background-color: white;
+                    }
+                }
+            }
+
+            &.request-admin {
+                align-items: flex-end;
+
+                span {
+                    &:nth-child(1) {
+                        font-size: 12px;
+                    }
+                    &:nth-child(2) {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+
+        .request-actions-container {
+            display: flex;
+            flex-wrap: wrap;
+            flex-flow: row-reverse;
+            gap: 10px;
+
+            margin-top: 40px;
+
+            button {
+                padding: 10px;
+                border: none;
+                border-radius: 4px;
+                font-weight: 600;
+
+                transition: background-color 0.2s;
+
+                &.decline-request {
+                    background-color: #f28c8c;
+                    
+                    &:hover {
+                        background-color: #f7b6b6;
+                    }
+                    
+                    &:active {
+                        background-color: #f28c8c;
+                        transition: none;
+                    }
+                }
+
+                &.ready-request {
+                    background-color: #f0ef8d;
+                    
+                    &:hover {
+                        background-color: #fdfcc3;
+                    }
+                    
+                    &:active {
+                        background-color: #f0ef8d;
+                        transition: none;
+                    }
+                }
+                
+                &.process-request {
+                    background-color: #8bcafe;
+                    
+                    &:hover {
+                        background-color: #afd9fb;
+                    }
+
+                    &:active {
+                        background-color: #8bcafe;
+                        transition: none;
+                    }
+                }
+                
+                &.pickedup-request {
+                    background-color: #4af87e;
+                    
+                    &:hover {
+                        background-color: #8cf9ad;
+                    }
+                    
+                    &:active {
+                        background-color: #4af87e;
+                        transition: none;
+                    }
+                }
+            }
+
+        }
+
+        &.type0 {
+            border-color: #F8A84A;
+        }
+        &.type1 {
+            border-color: #8bcafe;
+        }
+        &.type2 {
+            border-color: #f0ef8d;
+        }
+        &.type3 {
+            border-color: #4af87e;
+        }
+        &.type4 {
+            border-color: #f28c8c;
+        }
+
+        background-color: transparent;
+    }
+
+}

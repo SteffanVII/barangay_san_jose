@@ -20,6 +20,7 @@
     height: fit-content;
 
     background-color: white;
+    background-color: transparent;
     color: $default-color;
 
     header {
@@ -67,8 +68,8 @@
                 border-radius: 5px;
                 padding: 20px;
 
-                font-size: 16px;
-                font-weight: 700;
+                font-size: 13px;
+                font-weight: 500;
                 font-family: $inter;
 
                 background-color: #F0F4F8;

@@ -1,4 +1,6 @@
-
+const download = require("downloadjs");
+const { PDFDocument } = require("pdf-lib");
+ 
 function parseCookie() {
     let cookie = document.cookie;
 
@@ -19,18 +21,47 @@ function parseAge( birthdate ) {
 }
 
 const monthsMap = new Map([
-    [ "01", "January" ],
-    [ "02", "February" ],
-    [ "03", "March" ],
-    [ "04", "April" ],
-    [ "05", "May" ],
-    [ "06", "June" ],
-    [ "07", "July" ],
-    [ "08", "August" ],
-    [ "09", "September" ],
-    [ "10", "October" ],
-    [ "11", "November" ],
-    [ "12", "December" ],
+    [ 1, "January" ],
+    [ 2, "February" ],
+    [ 3, "March" ],
+    [ 4, "April" ],
+    [ 5, "May" ],
+    [ 6, "June" ],
+    [ 7, "July" ],
+    [ 8, "August" ],
+    [ 9, "September" ],
+    [ 10, "October" ],
+    [ 11, "November" ],
+    [ 12, "December" ],
 ]);
 
-module.exports = { parseCookie, parseAge, monthsMap };
+function generateBarangayClearance( data ) {
+
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open("GET", "http://localhost:3000/CERTIFICATE-OF-RESIDENCY.pdf");
+    xhr.responseType = "arraybuffer";
+    xhr.onreadystatechange = async () => {
+        if ( xhr.readyState === 4 && xhr.status === 200 ) {
+            try {
+                const doc = await PDFDocument.load( xhr.response );
+        
+                const form = doc.getForm();
+
+                form.getTextField("name").setText(data.name);
+
+                const save = await doc.save();
+
+                download( save, `Barangay-clearance-${data.name}.pdf` );
+        
+            } catch ( err ) {
+                console.log(err);
+                return;
+            }
+        }
+    };
+    xhr.send();
+
+}
+
+module.exports = { parseCookie, parseAge, monthsMap, generateBarangayClearance };

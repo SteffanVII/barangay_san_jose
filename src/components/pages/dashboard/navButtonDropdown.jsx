@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { dashboardContext } from "../../../globals/contexts";
+import { dashboardContextImport } from "../../../globals/contexts";
 import MainNavButton from "./navButton";
 import "./navButtonDropdown.scss";
 
 function MainNavButtonDropdown(props) {
 
-    const useDashboardContext = useContext(dashboardContext);
+    const useDashboardContext = useContext(dashboardContextImport);
 
     function getCollapse() {
         return useDashboardContext.collapse.value;

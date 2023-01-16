@@ -1,0 +1,163 @@
+@import "../../../../../sass/globals";
+
+#requests-manager-tab {
+    position: relative;
+
+    .request-manager-controller {
+        position: sticky;
+        top: calc(0px - 30px);
+        z-index: 1;
+
+        display: flex;
+        gap: 20px;
+
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        background-color: white;
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+
+            margin-right: 10px;
+        }
+
+        select {
+            padding: 10px;
+            border: none;
+            border-radius: 40px;
+            background-color: #F0F4F8;
+
+            outline: none;
+
+            option {
+                display: inline;
+                padding: 10px;
+            }
+        }
+
+        input[type=search] {
+            padding: 10px;
+            padding-left: 20px;
+
+            border: none;
+            border-radius: 40px;
+            background-color: #F0F4F8;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        button {
+            padding: 10px;
+            padding-left: 14px;
+            padding-right: 14px;
+
+            border: none;
+            border-radius: 40px;
+            font-size: 14px;
+            background-color: #F0F4F8;
+
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: $active-background;
+            }
+
+            &:active {
+                background-color: $hover-background;
+                color: white;
+                transition: none;
+            }
+        }
+
+        .search-request-container {
+
+            select {
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+
+            input[type=search] {
+                width: 50px;
+
+                border-radius: 0px;
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+
+                transition: width 0.2s;
+
+                &:focus, &:not(:placeholder-shown) {
+                    width: 200px;
+                }
+            }
+            
+            button {
+                border-top-left-radius: 0px;
+                border-bottom-left-radius: 0px;
+            }
+
+        }
+
+        .status-dropdown-container {
+
+            select {
+                &.type0 {
+                    background-color: #F8A84A;
+                }
+                &.type1, &.typeadmin {
+                    background-color: #8bcafe;
+                }
+                &.type2 {
+                    background-color: #f0ef8d;
+                }
+                &.type3 {
+                    background-color: #4af87e;
+                }
+                &.type4 {
+                    background-color: #f28c8c;
+                }
+            }
+
+        }
+    }
+
+    .view-n-card-grid {
+        display: grid;
+        grid-template-columns: min-content 1fr;
+        gap: 30px;
+
+        width: 100%;
+
+        .requests-container {
+            display: flex;
+            flex-flow: column;
+            gap: 10px;
+    
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        
+        .request-view-container {
+            position: sticky;
+            top: calc(0px - 30px + 58px);
+
+            height: fit-content;
+            max-height: calc(100vh - 58px);
+
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            overflow-y: auto;
+
+            // background-color: gray;
+
+            .request-viewer-title {
+                font-size: 24px;
+                font-weight: 600;
+            }
+        }
+    }
+
+
+}

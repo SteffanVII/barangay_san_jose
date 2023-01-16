@@ -1,3 +1,5 @@
+@import "./sass/globals";
+
 .App {
   width: 100vw;
   height: 100vh;
@@ -5,7 +7,29 @@
 
   overflow-y: auto;
 
-  background-image: url("municipality-of-tuy_header-1.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  // background-image: url("municipality-of-tuy_header-1.jpg");
+  // background-repeat: no-repeat;
+  // background-size: cover;
+  background: radial-gradient( white 90%, $hover-background );
+  background-size: 20px 20px;
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 }

@@ -1,0 +1,142 @@
+.live-banner-card {
+    position: relative;
+
+    display: flex;
+
+    width: 100%;
+    height: fit-content;
+
+    border-radius: 5px;
+
+    overflow: hidden;
+
+    transition: transform 0.2s;
+    
+    img {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+
+        width: 100%;
+        
+        object-fit: cover;
+    }
+
+    .banner-live-btns-container {
+        position: relative;
+        // position: absolute;
+        // top: 0;
+        // left: 0;
+        z-index: 1;
+
+        display: grid;
+        grid-template-columns: 1fr min-content;
+        gap: 10px;
+
+        width: 100%;
+        height: fit-content;
+        min-height: 100%;
+
+        padding: 10px;
+
+        span {
+            width: fit-content;
+            max-width: 100%;
+            height: fit-content;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+
+            padding: 5px;
+            border-radius: 3px;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: black;
+
+            font-size: 12px;
+
+        }
+
+        .unlive-btn {
+            width: fit-content;
+            height: fit-content;
+
+            padding: 5px;
+            border: none;
+            border-radius: 3px;
+
+            background-color: rgb(221, 111, 111);
+            color: white;
+            text-transform: uppercase;
+            
+            cursor: pointer;
+            
+            &:hover {
+                background-color: rgb(236, 137, 137);
+            }
+            
+            &:active {
+                background-color: rgb(221, 111, 111);
+            }
+        }
+
+        .banner-card-position-btns-container {
+            display: flex;
+            flex-flow: column;
+            gap: 5px;
+
+            button {
+                position: relative;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                width: 40px;
+                height: 40px;
+
+                border: none;
+                border-radius: 3px;
+
+                cursor: pointer;
+
+                &:hover {
+                    background-color: rgb(189, 189, 189);
+                }
+                
+                &:active {
+                    background-color: white;
+                }
+
+                &::before {
+                    content: "";
+                    width: 30%;
+                    height: 30%;
+                }
+
+                &:nth-child(1) {
+                    &::before {
+                        border-top: 2px solid black;
+                        border-left: 2px solid black;
+
+                        transform-origin: center;
+                        transform: rotate(45deg) translate(2px, 2px);
+                    }
+                }
+                
+                &:nth-child(2) {
+                    &::before {
+                        border-bottom: 2px solid black;
+                        border-right: 2px solid black;
+
+                        transform: rotate(45deg) translate(-2px, -2px); 
+                    }
+                }
+            }
+        }
+    }
+
+    &:hover {
+        transform: translateX(5px);
+    }
+}

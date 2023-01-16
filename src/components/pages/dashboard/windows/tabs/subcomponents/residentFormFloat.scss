@@ -34,6 +34,10 @@
         // grid-template-rows: 118px 118px;
         gap: 30px;
 
+        label {
+            font-size: 13px;
+        }
+
         span {
             display: block;
 
@@ -42,7 +46,7 @@
             font-weight: 500;
         }
 
-        input[type=text], input[type=number], input[type=email], select, input[type=date] {
+        input[type=text], input[type=number], input[type=tel], input[type=email], select, input[type=date] {
             padding: 14px;
 
             width: 200px;
@@ -164,7 +168,7 @@
             }
         }
 
-        .inputs-location-container {
+        .inputs-location-container, .inputs-civilstatus-container {
             display: flex;
             flex-flow: column;
             gap: 10px;
@@ -179,6 +183,7 @@
             .inputs-location-wrapper {
                 display: flex;
                 gap: 10px;
+                align-items: center;
 
                 input {
                     width: 50%;
@@ -236,6 +241,46 @@
             }
         }
 
+    }
+
+    .record-updated-notif {
+
+        position: absolute;
+        top: 10px;
+        right: 10px;
+
+        transform: translateY(20px);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 5px;
+        background-color: rgb(130, 216, 130);
+        color: white;
+        opacity: 0;
+        visibility: hidden;
+
+        padding: 10px;
+        
+        &.show {
+            opacity: 1;
+            transform: translateY(0px);
+            visibility: visible;
+
+            transition: transform 0.2s,
+                        opacity 0.2s;
+
+            animation: update-notif-fade 2s 1.2s linear forwards;
+        }
+
+        @keyframes update-notif-fade {
+            from {
+                opacity: 1;
+            } to {
+                opacity: 0;
+            }
+        }
     }
 
     &.show {

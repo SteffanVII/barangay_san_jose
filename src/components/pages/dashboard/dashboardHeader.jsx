@@ -1,6 +1,6 @@
 import { useContext, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { dashboardContext } from '../../../globals/contexts';
+import { dashboardContextImport } from '../../../globals/contexts';
 import { parseCookie } from '../../../globals/utilities';
 import { logout } from '../../../server/authenthication';
 import { tabs } from './dashboard';
@@ -10,7 +10,7 @@ import MainNavButtonDropdown from './navButtonDropdown';
 
 function DashboardHeader() {
 
-    const useDashboardContext = useContext(dashboardContext);
+    const useDashboardContext = useContext(dashboardContextImport);
     const redirect = useNavigate();
 
     function getCollapse() {
@@ -47,10 +47,15 @@ function DashboardHeader() {
             </div>
             <nav id="main-nav">
                 <MainNavButton title={"Dashboard"} value={tabs.dashboard} />
-                <MainNavButton title={"Announcement"} value={tabs.announcement} />
-                <MainNavButton title={"Appointments"} value={tabs.appointments} />
-                <MainNavButton title={"Residents"} value={tabs.residents} />
                 <MainNavButton title={"Requests Manager"} value={tabs.requestsManager} />
+                <MainNavButtonDropdown title={"Content Manager"} children={new Map([
+                    [ tabs.banners, { title : "Banners", noicon : true } ],
+                    [ tabs.events, { title : "Events", noicon : true } ]
+                ])}/>
+                <MainNavButtonDropdown title={"Records"} children={new Map([
+                    [ tabs.residents, { title : "Residents", noicon : true } ],
+                    [ tabs.blotters, { title : "Blotters", noicon : true } ]
+                ])} />
                 <MainNavButtonDropdown title={"Audit"} children={new Map([
                     [ tabs.loghistory,  { title : "Log History", noicon : true,  }],
                     [ tabs.appointmentTimestamps, { title : "Appointment Timestamps", noicon : true }]

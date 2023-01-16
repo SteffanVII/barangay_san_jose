@@ -1,17 +1,17 @@
 import { useContext } from "react";
-import { dashboardContext } from "../../../../../globals/contexts";
+import { dashboardContextImport } from "../../../../../globals/contexts";
 import "./tabButton.scss";
 
 
 function TabButton(props) {
-    const useDashboardContext = useContext(dashboardContext);
+    const usedashboardContextImport = useContext(dashboardContextImport);
 
     function getActiveTab() {
-        return useDashboardContext.activeWindow.value;
+        return usedashboardContextImport.activeWindow.value;
     }
 
     function setActiveWindow() {
-        useDashboardContext.activeWindow.setter(props.value);
+        usedashboardContextImport.activeWindow.setter(props.value);
     }
 
     return (

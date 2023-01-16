@@ -1,7 +1,8 @@
 import { createContext, useContext, useLayoutEffect, useReducer, useRef } from "react";
-import { dashboardContext } from "../../../../../globals/contexts";
+import { dashboardContextImport } from "../../../../../globals/contexts";
 import { getResidentsAll } from "../../../../../server/residents";
 import "./residentsTab.scss";
+import Pagination from "./subcomponents/pagination";
 import PaginationButton from "./subcomponents/paginationButton";
 import ResidentDetailsFloat from "./subcomponents/residentDetailsFloat";
 import ResidentFormFloat from "./subcomponents/residentFormFloat";
@@ -15,7 +16,9 @@ export const residentsTabReducerActionTypes = {
     SHOWDETAILS : 4,
     HIDEDETAILS : 5,
     SHOWFORM : 6,
-    HIDEFORM : 7
+    HIDEFORM : 7,
+    UPDATEFILTER : 8,
+    APPLYFILTER : 9
 }
 
 function residentsTabReducer(state, action) {
@@ -30,14 +33,14 @@ function residentsTabReducer(state, action) {
                 />
             );
 
-            state.paginationComps = [];
-            let start = state.queryControl.page <= 3 ? 1 : state.queryControl.page >= state.results.totalPages - 2 ? state.results.totalPages - 4 : state.queryControl.page - 2;
-            let end = state.queryControl.page <= 3 ? 6 : state.queryControl.page >= state.results.totalPages - 2 ? state.results.totalPages + 1 : state.queryControl.page + 3;
-            for ( let index = start; index < end; index++ ) {
-                if ( index < state.results.totalPages + 1 ) {
-                    state.paginationComps.push(<PaginationButton key={index + "-pgnbtn"} page={index} current={state.results.currentPage} />)
-                }
-            }
+            // state.paginationComps = [];
+            // let start = state.queryControl.page <= 3 ? 1 : state.queryControl.page >= state.results.totalPages - 2 ? state.results.totalPages - 4 : state.queryControl.page - 2;
+            // let end = state.queryControl.page <= 3 ? 6 : state.queryControl.page >= state.results.totalPages - 2 ? state.results.totalPages + 1 : state.queryControl.page + 3;
+            // for ( let index = start; index < end; index++ ) {
+            //     if ( index < state.results.totalPages + 1 ) {
+            //         state.paginationComps.push(<PaginationButton key={index + "-pgnbtn"} page={index} current={state.results.currentPage} />)
+            //     }
+            // }
 
             return {...state};
 
@@ -54,6 +57,24 @@ function residentsTabReducer(state, action) {
 
         case residentsTabReducerActionTypes.TOGGLEFILTERS:
             state.filters = action.payload;
+            return {...state};
+
+        case residentsTabReducerActionTypes.UPDATEFILTER:
+            state.filtersControl = action.payload;
+            return {...state};
+            
+        case residentsTabReducerActionTypes.APPLYFILTER:
+            state.queryControl.firstname = action.payload.firstname;
+            state.queryControl.lastname = action.payload.lastname;
+            state.queryControl.middlename = action.payload.middlename;
+            state.queryControl.page = 1;
+            state.queryControl.age = action.payload.age;
+            state.queryControl.byRange.enabled = action.payload.byRange.enabled;
+            state.queryControl.byRange.min = action.payload.byRange.min;
+            state.queryControl.byRange.max = action.payload.byRange.max;
+            state.queryControl.gender = action.payload.gender;
+            state.queryControl.purok = action.payload.purok;
+            state.queryControl = { ...state.queryControl };
             return {...state};
 
         case residentsTabReducerActionTypes.SHOWDETAILS:
@@ -103,10 +124,26 @@ function ResidentsTab() {
         queryControl : {
             entries : 100,
             page : 1,
+            firstname : "",
+            lastname : "",
+            middlename : "",
+            suffix : "",
+            age : -1,
+            byRange : {
+                enabled : false,
+                min : 18,
+                max : 80
+            },
+            gender : -1,
+            purok : -1
         },
-        filters : false,
-        filterControl : {
-
+        filtersControl : {
+            age : {
+                enabled : false,
+                byRange : false
+            },
+            gender : false,
+            purok : false
         },
         showDetails : false,
         residentFloatDetails : undefined,
@@ -119,17 +156,49 @@ function ResidentsTab() {
     })
 
     const filterForm = useRef(null);
-    const dbContext = useContext(dashboardContext);
+    const dbContext = useContext(dashboardContextImport);
 
     // Fetch residents everytime valuse inside queryControl changes -- look at residentsTabState ...
     useLayoutEffect(() => {
         getResidentsAll( residentsTabState.queryControl, (response) => {
-            residentsTabDispatch({
-                type : residentsTabReducerActionTypes.SETRESULTS,
-                payload : response
-            })
+            dbContext.timeoutRedirect( response, () => {
+                residentsTabDispatch({
+                    type : residentsTabReducerActionTypes.SETRESULTS,
+                    payload : response
+                })
+            } );
         })
     }, [residentsTabState.queryControl]);
+
+    function isAgefilterEnabled() {
+        return residentsTabState.filtersControl.age.enabled;
+    }
+    
+    function isAgeFilterNormal() {
+        return !residentsTabState.filtersControl.age.byRange;
+    }
+
+    function isGenderFilterEnabled() {
+        return residentsTabState.filtersControl.gender;
+    }
+
+    function isPurokFilterEnabled() {
+        return residentsTabState.filtersControl.purok;
+    }
+
+    function enabledFilters() {
+        residentsTabDispatch({
+            type : residentsTabReducerActionTypes.UPDATEFILTER,
+            payload : {
+                age : {
+                    enabled : filterForm.current["toggle-age-filter"].checked,
+                    byRange : filterForm.current["toggle-age-filter-by-range"].checked
+                },
+                gender :  filterForm.current["toggle-gender-filter"].checked,
+                purok :  filterForm.current["toggle-purok-filter"].checked
+            }
+        })
+    }
 
     return (
         <residentsTabContext.Provider value={{
@@ -163,6 +232,12 @@ function ResidentsTab() {
                     });
                 },
                 value : () => {return residentsTabState.showForm}
+            },
+            refresh : () => {
+                residentsTabDispatch({
+                    type : residentsTabReducerActionTypes.CHANGEPAGE,
+                    payload : residentsTabState.queryControl.page
+                })
             }
         }}>
 
@@ -175,33 +250,46 @@ function ResidentsTab() {
                         event.preventDefault();
 
                     }}
+                    onReset={() => {
+                        residentsTabDispatch({
+                            type : residentsTabReducerActionTypes.UPDATEFILTER,
+                            payload : {
+                                age : {
+                                    enabled : false,
+                                    byRange : false
+                                },
+                                gender :  false,
+                                purok :  false
+                            }
+                        })
+                    }}
                 >
                     <span>Filters</span>
                     <div className="filters-wrapper">
                         <div className="filter-wrapper filter-wrapper__name">
                             <div className="name-input-wrapper">
-                                <input type="text" id="firstname-filter" placeholder="Firstname" disabled/>
-                                <input type="checkbox" id="toggle-firstname-filter"
+                                <input type="text" id="firstname-filter" placeholder="Firstname"/>
+                                {/* <input type="checkbox" id="toggle-firstname-filter"
                                     onChange={(event) => {
                                         filterForm.current["firstname-filter"].disabled = !event.target.checked;
                                     }}
-                                />
+                                /> */}
                             </div>
                             <div className="name-input-wrapper">
-                                <input type="text" id="lastname-filter" placeholder="Lastname" disabled/>
-                                <input type="checkbox" id="toggle-lastname-filter"
+                                <input type="text" id="lastname-filter" placeholder="Lastname"/>
+                                {/* <input type="checkbox" id="toggle-lastname-filter"
                                     onChange={(event) => {
                                         filterForm.current["lastname-filter"].disabled = !event.target.checked;
                                     }}
-                                />
+                                /> */}
                             </div>
                             <div className="name-input-wrapper">
-                                <input type="text" id="middlename-filter" placeholder="Middlename" disabled/>
-                                <input type="checkbox" id="toggle-middlename-filter"
+                                <input type="text" id="middlename-filter" placeholder="Middlename"/>
+                                {/* <input type="checkbox" id="toggle-middlename-filter"
                                     onChange={(event) => {
                                         filterForm.current["middlename-filter"].disabled = !event.target.checked;
                                     }}
-                                />
+                                /> */}
                             </div>
                         </div>
                         {/* <hr /> */}
@@ -209,32 +297,27 @@ function ResidentsTab() {
                             <div className="age-filter-group">
                                 <label htmlFor="">Age</label>
                                 <input type="checkbox" id="toggle-age-filter"
-                                    onChange={(event) => {
-                                        filterForm.current["toggle-age-filter-by-range"].disabled = !event.target.checked;
-                                        filterForm.current["age-filter-input"].disabled = filterForm.current["toggle-age-filter-by-range"].checked ? true : !event.target.checked;
-                                        filterForm.current["age-filter-input-min"].disabled = event.target.checked ? filterForm.current["toggle-age-filter-by-range"].checked ? false : true : !event.target.checked;
-                                        filterForm.current["age-filter-input-max"].disabled = event.target.checked ? filterForm.current["toggle-age-filter-by-range"].checked ? false : true : !event.target.checked;
+                                    onClick={(event) => {
+                                        enabledFilters();
                                     }}
                                 />
                             </div>
-                            <input type="number" id="age-filter-input" defaultValue={0} disabled/>
+                            <input type="number" id="age-filter-input" defaultValue={0} disabled={ isAgefilterEnabled() ? isAgeFilterNormal() ? false : true : true }/>
                             <div className="age-filter-group">
                                 <label htmlFor="">By range</label>
-                                <input type="checkbox" id="toggle-age-filter-by-range" disabled
-                                    onChange={(event) => {
-                                        filterForm.current["age-filter-input"].disabled = event.target.checked;
-                                        filterForm.current["age-filter-input-min"].disabled = !event.target.checked;
-                                        filterForm.current["age-filter-input-max"].disabled = !event.target.checked;
+                                <input type="checkbox" id="toggle-age-filter-by-range" disabled={ !isAgefilterEnabled() }
+                                    onClick={(event) => {
+                                        enabledFilters();
                                     }}
                                 />
                             </div>
                             <div className="age-filter-group">
                                 <label htmlFor="">Min</label>
-                                <input type="number" id="age-filter-input-min" defaultValue={18} disabled/>
+                                <input type="number" id="age-filter-input-min" defaultValue={18} disabled={ isAgefilterEnabled() ? !isAgeFilterNormal() ? false : true : true }/>
                             </div>
                             <div className="age-filter-group">
                                 <label htmlFor="">Max</label>
-                                <input type="number" id="age-filter-input-max" defaultValue={80} disabled/>
+                                <input type="number" id="age-filter-input-max" defaultValue={80} disabled={ isAgefilterEnabled() ? !isAgeFilterNormal() ? false : true : true }/>
                             </div>
                         </div>
                         {/* <hr /> */}
@@ -242,14 +325,14 @@ function ResidentsTab() {
                             <div className="gender-filter-group">
                                 <label htmlFor="">Gender</label>
                                 <input type="checkbox" id="toggle-gender-filter"
-                                    onChange={(event) => {
-                                        filterForm.current["gender-filter-dropdown"].disabled = !event.target.checked;
+                                    onClick={(event) => {
+                                        enabledFilters();
                                     }}
                                 />
                             </div>
-                            <select id="gender-filter-dropdown" disabled>
-                                <option value="Female">Female</option>
-                                <option value="Male">Male</option>
+                            <select id="gender-filter-dropdown" disabled={!residentsTabState.filtersControl.gender}>
+                                <option value="0">Male</option>
+                                <option value="1">Female</option>
                             </select>
                         </div>
                         {/* <hr /> */}
@@ -257,17 +340,50 @@ function ResidentsTab() {
                             <div className="purok-filter-group">
                                 <label htmlFor="">Purok</label>
                                 <input type="checkbox" id="toggle-purok-filter"
-                                    onChange={(event) => {
-                                        filterForm.current["purok-filter-input"].disabled = !event.target.checked;
+                                    onClick={(event) => {
+                                        enabledFilters();
                                     }}
                                 />
                             </div>
-                            <input type="number" id="purok-filter-input" placeholder="Purok No." disabled/>
+                            <input type="number" id="purok-filter-input" placeholder="Purok No." disabled={!residentsTabState.filtersControl.purok}/>
                         </div>
                     </div>
                     <div className="filter-buttons-container">
-                        <button>Clear Filters</button>
-                        <button>Apply</button>
+                        <button type="reset"
+                                onClick={() => {
+                                    residentsTabDispatch({
+                                       type : residentsTabReducerActionTypes.UPDATEFILTER,
+                                       payload : {
+                                            age : -1,
+                                            byRange : {
+                                                enabled : false,
+                                                min : -1,
+                                                max : -1
+                                            },
+                                            gender : -1,
+                                            purok : -1
+                                       } 
+                                    });
+                                }}
+                        >Clear Filters</button>
+                        <button onClick={() => {
+                            residentsTabDispatch({
+                               type : residentsTabReducerActionTypes.APPLYFILTER,
+                               payload : {
+                                    firstname : filterForm.current["firstname-filter"].value,
+                                    lastname : filterForm.current["lastname-filter"].value,
+                                    middlename : filterForm.current["middlename-filter"].value,
+                                    age : ( isAgefilterEnabled() ? isAgeFilterNormal() ? filterForm.current["age-filter-input"].value : -1 : -1 ),
+                                    byRange : {
+                                        enabled : isAgefilterEnabled() && !isAgeFilterNormal(),
+                                        min : (isAgefilterEnabled() && !isAgeFilterNormal()) ? filterForm.current["age-filter-input-min"].value : -1,
+                                        max : (isAgefilterEnabled() && !isAgeFilterNormal()) ? filterForm.current["age-filter-input-max"].value : -1
+                                    },
+                                    gender : isGenderFilterEnabled() ? filterForm.current["gender-filter-dropdown"].value : -1,
+                                    purok : isPurokFilterEnabled() ? filterForm.current["purok-filter-input"].value : -1
+                               } 
+                            });
+                        }}>Refresh</button>
                     </div>
                 </form>
                 <div className="entries-controller">
@@ -296,7 +412,7 @@ function ResidentsTab() {
                     </div>
                     <hr />
                     <div className="entry-count-container">
-                        <span>Total residents - </span>
+                        <span>Total results - </span>
                         <span>{residentsTabState.results.totalEntries}</span>
                     </div>
                     <div className="entry-btns-container">
@@ -312,7 +428,7 @@ function ResidentsTab() {
                         >Add Resident</button>
                     </div>
                     {/* Entry pagination */}
-                    <div className="entry-pagination-container">
+                    {/* <div className="entry-pagination-container">
                         <button
                             id="prev-page"
                             onClick={() => {
@@ -336,17 +452,44 @@ function ResidentsTab() {
                                 }
                             }}
                         ><span></span></button>
-                    </div>
+                    </div> */}
+                    <Pagination
+                        page={ () => {
+                            return residentsTabState.queryControl.page;
+                        } }
+                        total={() => {
+                            return residentsTabState.results.totalPages;
+                        }}
+                        current={residentsTabState.results.currentPage}
+                        pageCb={( p ) => {
+                            residentsTabDispatch({ type : residentsTabReducerActionTypes.CHANGEPAGE, payload : p });
+                        }}
+                        prevFunction={() => {
+                            if ( residentsTabState.queryControl.page > 1 ) {
+                                residentsTabDispatch({
+                                    type : residentsTabReducerActionTypes.CHANGEPAGE,
+                                    payload : residentsTabState.queryControl.page - 1
+                                })
+                            }
+                        }}
+                        nextFunction={() => {
+                            if ( residentsTabState.queryControl.page < residentsTabState.results.totalPages ) {
+                                residentsTabDispatch({
+                                    type : residentsTabReducerActionTypes.CHANGEPAGE,
+                                    payload : residentsTabState.queryControl.page + 1
+                                })
+                            }
+                        }}/>
                 </div>
                 <table cellSpacing={0} >
                     <thead>
                         <tr>
                             <th></th>
-                            <th><button>Name</button></th>
+                            <th><button>F/L/M/Suffix</button></th>
                             <th><button>Birthdate</button></th>
                             <th><button>Age</button></th>
                             <th><button>Gender</button></th>
-                            <th><button>Registered/Not Registered</button></th>
+                            {/* <th><button>Registered/Not Registered</button></th> */}
                             <th><button>Purok No.</button></th>
                             <th><button>House No.</button></th>
                             <th><button>Contact No.</button></th>

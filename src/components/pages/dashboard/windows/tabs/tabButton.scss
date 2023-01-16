@@ -9,15 +9,16 @@
     }
 
     label {
+        display: inline-block;
+
         width: fit-content;
         height: fit-content;
-        padding: 10px 16px 10px 16px;
-
-        border-radius: 40px;
+        padding: 6px 12px 6px 12px;
 
         background-color: rgba(128, 128, 128, 0.2);
         font-family: $inter;
         font-weight: 500;
+        font-size: 14px;
 
         transition: color 0.2s,
                     background-color 0.2s;
@@ -33,6 +34,9 @@
 
         &:checked + label {
             background-color: #80C8F0;
+            color: white;
+            border-bottom: 2px solid gray;
+            transform: translateY(-2px);
         }
     }
     

@@ -19,25 +19,68 @@
         color: #515151;
     }
 
-    h3 {
-        font-size: 36px;
-        font-family: $inter;
-    }
+    .window-header {
 
-    .tabs-btn-container {
         display: flex;
-        gap: 10px;
+        align-items: center;
+        gap: 20px;
+
+        h3 {
+            width: fit-content;
+    
+            font-size: 36px;
+            font-family: $inter;
+
+            white-space: nowrap;
+        }
+    
+        .tabs-btn-container {
+            display: flex;
+            // gap: 10px;
+            width: 100%;
+            height: fit-content;
+        }
     }
 
-    .tabs-btn-container {
-        width: 100%;
-        height: fit-content;
-    }
+
+    // .tabs-btn-container {
+    // }
 
     .tab {
         width: 100%;
         height: fit-content;
 
         // outline: 1px solid red;
+    }
+
+    .float-container {
+        z-index: 2;
+        position: absolute;
+        position: fixed;
+        top: 0;
+        right: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: calc(100% - 330px);
+        height: 100vh;
+
+        background-color: rgba(128, 128, 128, 0.5);
+        background-color: transparent;
+
+        overflow: hidden;
+
+        pointer-events: none;
+
+        &.collapse {
+            width: calc(100% - 90px);
+        }
+
+        .float-title {
+            font-family: $inter;
+            font-size: 24px;
+        }
     }
 }

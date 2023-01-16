@@ -1,0 +1,194 @@
+@import "../../../../../sass/globals";
+
+#blotters-tab {
+
+    .blotters-controller {
+        position: sticky;
+        top: calc(0px - 30px);
+        z-index: 1;
+
+        display: flex;
+        gap: 20px;
+
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        background-color: white;
+
+        .search-blotter-container {
+
+            select {
+                padding: 10px;
+
+                border: none;
+                border-top-left-radius: 40px;
+                border-bottom-left-radius: 40px;
+                background-color: #F0F4F8;
+
+                outline: none;
+            }
+            
+            input[type=search] {
+                width: 50px;
+
+                padding: 10px;
+
+                border: none;
+                background-color: #F0F4F8;
+
+                outline: none;
+
+                transition: width 0.2s;
+
+                &:focus, &:not(:placeholder-shown) {
+                    width: 200px;
+                }
+            }
+
+            button {
+                padding: 10px;
+                padding-left: 14px;
+                padding-right: 14px;
+
+                border: none;
+                border-top-right-radius: 40px;
+                border-bottom-right-radius: 40px;
+                background-color: #F0F4F8;
+                
+                outline: none;
+
+                transition: background-color 0.2s;
+
+                &:hover {
+                    background-color: $active-background;
+                }
+    
+                &:active {
+                    background-color: $hover-background;
+                    color: white;
+                    transition: none;
+                }
+            }
+
+        }
+
+        .register-blotter-button {
+            padding: 10px;
+            padding-left: 14px;
+            padding-right: 14px;
+
+            font-weight: 600;
+            border: none;
+            border-radius: 40px;
+            outline: none;
+
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: $active-background;
+            }
+
+            &:active {
+                background-color: $hover-background;
+                color: white;
+                transition: none;
+            }
+        }
+
+        #blotter-status-dropdown, #blotter-order-dropdown {
+
+            border: none;
+            border-right: 10px solid #F0F4F8;
+            border-radius: 40px;
+            padding-left: 14px;
+
+            background-color: #F0F4F8;
+
+            outline: none;
+        }
+
+    }
+
+    .blotters-container {
+        position: relative;
+
+        width: 100%;
+        height: fit-content;
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        .blotters-lazyload-trigger {
+            position: fixed;
+            bottom: 200%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 100%;
+            height: 100px;
+
+            // outline: 1px solid red;
+
+            span {
+                position: relative;
+
+                display: inline-block;
+
+                width: 40px;
+                height: 40px;
+
+                border-radius: 50%;
+                border: 4px solid gray;
+
+                animation: rotate 1s linear infinite;
+
+                &::before {
+                    content:  "";
+
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+
+                    width: 100%;
+                    height: 100%;
+
+                    background-color: white;
+                }
+
+                @keyframes rotate {
+                    from {
+                        transform: rotate(0deg);
+                    } to {
+                        transform: rotate(360deg);
+                    }
+                }
+            }
+
+            &.show {
+                // display: flex;
+                position: initial;
+            }
+        }
+
+        .blotters-no-result-found {
+            display: none;
+            justify-content: center;
+            align-items: center;
+
+            width: 100%;
+            height: 100px;
+
+            &.show {
+                display: flex;
+            }
+        }
+    }
+
+}

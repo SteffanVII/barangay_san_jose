@@ -11,7 +11,7 @@ function PaginationButton( props ) {
         <button
             className={"pagination-btn " + ( props.current == props.page ? "current" : "" )}
             onClick={() => {
-                resTabCon.reducer.dispatch({ type : residentsTabReducerActionTypes.CHANGEPAGE, payload : props.page });
+                props.callback( props.page );
             }}
         >{props.page}</button>
     );

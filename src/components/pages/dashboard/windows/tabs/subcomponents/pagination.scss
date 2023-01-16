@@ -1,0 +1,73 @@
+@import "../../../../../../sass/globals";
+
+.entry-pagination {
+    display: flex;
+    // margin-left: auto;
+
+    button  {
+        position: relative;
+
+        width: 36px;
+        height: 36px;
+
+        border: none;
+        background-color: transparent;
+        font-family: $inter;
+        font-weight: 700;
+
+        transition: background-color 0.2s;
+        
+        span {
+            position: absolute;
+
+            width: 12px;
+            height: 12px;
+
+            transition: border-color 0.2s;
+        }
+
+        &.prev-button {
+            border-top-left-radius: 50%;
+            border-bottom-left-radius: 50%;
+            span {
+                top: 50%;
+                left: 50%;
+                transform-origin: center;
+                transform: translate(-20%, -50%) rotate(45deg);
+                border-left: 3px solid gray;
+                border-bottom: 3px solid gray;
+            }
+        }
+        &.next-button {
+            border-top-right-radius: 50%;
+            border-bottom-right-radius: 50%;
+            span {
+                top: 50%;
+                left: 50%;
+                transform-origin: center;
+                transform: translate(-80%, -50%) rotate(-45deg);
+                border-right: 3px solid gray;
+                border-bottom: 3px solid gray;
+            }
+        }
+
+        &.pagination-btn {
+            transition: transform 0.2s;
+        }
+
+        
+        &:hover {
+            background-color: rgb(240, 244, 248);
+        }
+        
+        &:active {
+            background-color: $active-background;
+        }
+
+        &.current {
+            transform: translateY(-3px);
+            background-color: $active-background;
+        }
+    }
+
+}

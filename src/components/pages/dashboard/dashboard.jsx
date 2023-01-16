@@ -1,10 +1,9 @@
 import {  useLayoutEffect, useReducer, useState } from "react";
-import { dashboardContext } from "../../../globals/contexts";
+import { dashboardContextImport } from "../../../globals/contexts";
 import "./dashboard.scss";
 import DashboardHeader from "./dashboardHeader";
 import WindowComponent from "./windows/windowComponent";
 import DashboardTab from "./windows/tabs/dashboardTab";
-import AnnouncementsTab from "./windows/tabs/announcementsTab";
 import LogHistoryTab from "./windows/tabs/loghistoryTab";
 import TimestampsTab from "./windows/tabs/timestampsTab";
 import ResidentsTab from "./windows/tabs/residentsTab";
@@ -12,6 +11,9 @@ import { authenticate } from "../../../server/authenthication";
 import { useNavigate } from "react-router-dom";
 import AppointmentsTab from "./windows/tabs/appointmentsTab";
 import RequestsManagerTab from "./windows/tabs/requestsManagerTab";
+import BlottersTab from "./windows/tabs/blottersTab";
+import BannersManagerTab from "./windows/tabs/bannersManagerTab";
+import EventsTab from "./windows/tabs/eventsTab";
 
 export const tabs = {
     dashboard : 1,
@@ -19,8 +21,10 @@ export const tabs = {
     residents : 3,
     loghistory : 4,
     appointmentTimestamps : 5,
-    appointments : 6,
-    requestsManager : 7
+    events : 6,
+    requestsManager : 7,
+    blotters : 8,
+    banners : 9
 }
 
 export const RdashboardDispatchTypes = {
@@ -41,14 +45,6 @@ function Rdashboard( state, action ) {
                         [tabs.dashboard, {
                             title : "Dashboard",
                             component : <DashboardTab/>
-                        }]
-                    ])}/>;
-                    break;
-                case tabs.announcement:
-                    state.windowcomp = <WindowComponent title={"Announcements"} tabs={new Map([
-                        [tabs.announcement, {
-                            title : "Announcement",
-                            component : <AnnouncementsTab/>
                         }]
                     ])}/>;
                     break;
@@ -78,20 +74,31 @@ function Rdashboard( state, action ) {
 
                     ])}/>
                     break;
+                    
                 case tabs.residents:
-                    state.windowcomp = <WindowComponent title={"Residents"} tabs={new Map([
+                    state.windowcomp = <WindowComponent title={"Records"} tabs={new Map([
                         [tabs.residents, {
                             title : "Residents",
                             component : <ResidentsTab/>
                         }],
+                        [tabs.blotters, {
+                            title : "Blotters",
+                            component : <BlottersTab/>
+                        }]
+
                     ])}/>
                     break;
-                case tabs.appointments:
-                    state.windowcomp = <WindowComponent title={"Appointments"} tabs={new Map([
-                        [tabs.appointments, {
-                            title : "Appointments",
-                            component : <AppointmentsTab/>
+                case tabs.blotters:
+                    state.windowcomp = <WindowComponent title={"Records"} tabs={new Map([
+                        [tabs.residents, {
+                            title : "Residents",
+                            component : <ResidentsTab/>
                         }],
+                        [tabs.blotters, {
+                            title : "Blotters",
+                            component : <BlottersTab/>
+                        }]
+
                     ])}/>
                     break;
                 case tabs.requestsManager:
@@ -101,6 +108,30 @@ function Rdashboard( state, action ) {
                             component : <RequestsManagerTab/>
                         }]
                     ])}/>
+                    break;
+                case tabs.banners:
+                    state.windowcomp = <WindowComponent title={"Content Manager"} tabs={new Map([
+                        [tabs.banners, {
+                            title : "Banners",
+                            component : <BannersManagerTab/>
+                        }],
+                        [tabs.events, {
+                            title : "Events",
+                            component : <EventsTab/>
+                        }]
+                    ])}/>
+                    break;
+                case tabs.events:
+                    state.windowcomp = <WindowComponent title={"Content Manager"} tabs={new Map([
+                        [tabs.banners, {
+                            title : "Banners",
+                            component : <BannersManagerTab/>
+                        }],
+                        [tabs.events, {
+                            title : "Events",
+                            component : <EventsTab/>
+                        }]
+                    ])}/>;
                     break;
                 default:
                     break;
@@ -147,7 +178,7 @@ function DashboardPage() {
     }
 
     return (
-        <dashboardContext.Provider value={{
+        <dashboardContextImport.Provider value={{
             collapse : {
                 value : getCollapse(),
                 setter : (value) => {
@@ -158,6 +189,13 @@ function DashboardPage() {
                 value : getActiveWindow(),
                 setter : (value) => {
                     dashboardDispatch({type : RdashboardDispatchTypes.setwindow, payload : value})
+                }
+            },
+            timeoutRedirect : ( value, callback ) => {
+                if ( value && value.status && value.status === "timeout" ) {
+                    redirect("/login");
+                } else {
+                    callback();
                 }
             }
         }}>
@@ -175,7 +213,7 @@ function DashboardPage() {
                 null
             }
 
-        </dashboardContext.Provider>
+        </dashboardContextImport.Provider>
     );
 }
 

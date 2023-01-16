@@ -180,7 +180,10 @@
                 }
 
                 &:active {
-                    transform: translateY(-4px);
+                    transform: translateY(-2px);
+
+                    transition: background-color 0.2s,
+                                color 0.2s;
                 }
             }
         }
@@ -495,35 +498,35 @@
         }
     }
 
-    .float-container {
-        z-index: 2;
-        position: absolute;
-        position: fixed;
-        top: 0;
-        right: 0;
+    // .float-container {
+    //     z-index: 2;
+    //     position: absolute;
+    //     position: fixed;
+    //     top: 0;
+    //     right: 0;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
 
-        width: calc(100% - 330px);
-        height: 100vh;
+    //     width: calc(100% - 330px);
+    //     height: 100vh;
 
-        background-color: rgba(128, 128, 128, 0.5);
-        background-color: transparent;
+    //     background-color: rgba(128, 128, 128, 0.5);
+    //     background-color: transparent;
 
-        overflow: hidden;
+    //     overflow: hidden;
 
-        pointer-events: none;
+    //     pointer-events: none;
 
-        &.collapse {
-            width: calc(100% - 90px);
-        }
+    //     &.collapse {
+    //         width: calc(100% - 90px);
+    //     }
 
-        .float-title {
-            font-family: $inter;
-            font-size: 24px;
-        }
-    }
+    //     .float-title {
+    //         font-family: $inter;
+    //         font-size: 24px;
+    //     }
+    // }
 
 }
