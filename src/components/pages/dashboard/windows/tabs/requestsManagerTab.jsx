@@ -172,6 +172,14 @@ function RequestsManagerTab() {
                         </select>
                     </div>
 
+                    <div className="request-refresh-container">
+                        <button type="button"
+                                onClick={() => {
+                                    refreshList();
+                                }}
+                        >Refresh</button>
+                    </div>
+
                 </form>
 
                 <div className="view-n-card-grid">

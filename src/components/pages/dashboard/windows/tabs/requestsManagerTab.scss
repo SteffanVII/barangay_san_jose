@@ -1,4 +1,5 @@
 @import "../../../../../sass/globals";
+@import "../../../../../sass/mediaqueries";
 
 #requests-manager-tab {
     position: relative;
@@ -9,6 +10,7 @@
         z-index: 1;
 
         display: flex;
+        flex-wrap: wrap;
         gap: 20px;
 
         padding-top: 10px;
@@ -136,6 +138,10 @@
     
             padding-top: 10px;
             padding-bottom: 10px;
+
+            @include w1420 {
+                grid-row: 2 / 3;
+            }
         }
         
         .request-view-container {
@@ -156,6 +162,11 @@
                 font-size: 24px;
                 font-weight: 600;
             }
+        }
+
+        @include w1420 {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr min-content;
         }
     }
 

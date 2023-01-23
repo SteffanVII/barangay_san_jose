@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useContext } from "react";
 import { useLayoutEffect } from "react";
 import { dashboardContextImport } from "../../../../../../globals/contexts";
-import { generateBarangayClearance } from "../../../../../../globals/utilities";
+import { generateBarangayClearance, generateBussinessClearance, generateResidency } from "../../../../../../globals/utilities";
 import { changeDocumentRequestStatus, getDocumentRequestInfo } from "../../../../../../server/requests";
 import { requestsManagerTabContext } from "../requestsManagerTab";
 import { parseType } from "./requestCard";
@@ -19,9 +19,11 @@ function RequestViewer( props ) {
 
     function refresh() {
         if ( props.requestId !== null ) {
-            console.log("refresh");
             getDocumentRequestInfo( props.requestId, ( response ) => {
-                dashboardContext.timeoutRedirect( response, () => setData(response[0]) );
+                dashboardContext.timeoutRedirect( response, () => {
+                    console.log(response);
+                    setData(response)
+                } );
             } )
         }        
     }
@@ -59,9 +61,29 @@ function RequestViewer( props ) {
                         <span>Phone</span>
                         <span>{data.phone !== "" ? data.phone : "No data"}</span>
                     </div>
+                    { ( parseInt(data.type) === 0) && <div className="request-info-wrapper request-purok">
+                        <span>Purok</span>
+                        <span>{data.purok}</span>
+                    </div>
+                    }
                     { ( parseInt(data.type) === 0) && <div className="request-info-wrapper request-purpose">
                         <span>Purpose</span>
-                        <span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia ipsam repellendus molestiae praesentium unde accusantium nemo explicabo nihil amet animi omnis velit neque nulla dolorum, rem laborum voluptate nostrum possimus?</span>
+                        <span>{data.purpose}</span>
+                    </div>
+                    }
+                    { ( parseInt(data.type) === 1) && <div className="request-info-wrapper request-bussiness-name">
+                        <span>Bussiness Name</span>
+                        <span>{data.bussiness_name}</span>
+                    </div>
+                    }
+                    { ( parseInt(data.type) === 1) && <div className="request-info-wrapper request-bussiness-address">
+                        <span>Bussiness Address</span>
+                        <span>{data.bussiness_address}</span>
+                    </div>
+                    }
+                    { ( parseInt(data.type) === 1) && <div className="request-info-wrapper request-bussiness-description">
+                        <span>Bussiness Description</span>
+                        <span>{data.bussiness_description}</span>
                     </div>
                     }
                     { (data.status === 1) && 
@@ -139,7 +161,18 @@ function RequestViewer( props ) {
                             } )
                         }
                         else if ( confirm === "print" ) {
-                            generateBarangayClearance( data );
+                            if ( data.type === 0 ) {
+                                generateBarangayClearance( data );
+                            }
+                            else if ( data.type === 1 ) {
+                                generateBussinessClearance( data );
+                            }
+                            else if ( data.type === 2 ) {
+                                generateResidency( data );
+                            }
+                            else if ( data.type === 3 ) {
+
+                            }
                         }
                         setConfirm(null);
                     }} >OK</button>

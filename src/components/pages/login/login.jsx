@@ -31,7 +31,7 @@ function LoginPage() {
 
         <div id="login-page">
             <header>
-                <img src="Tuy_Batangas.png"/>
+                <img src="san_jose_seal.png"/>
                 <h1>Barangay San Jose<span>Tuy Batangasy</span></h1>
             </header>
             <main>

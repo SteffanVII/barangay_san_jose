@@ -1,3 +1,5 @@
+@import "../../../../../../sass/mediaqueries";
+
 .event-row {
 
     position: relative;
@@ -8,6 +10,8 @@
     // align-items: center;
 
     padding: 15px;
+
+    min-width: 780px;
 
     border-radius: 5px;
     background-color: rgb(232, 245, 249);
@@ -74,5 +78,4 @@
     &.ongoing {
         background-color: rgb(184, 234, 201);
     }
-
 }

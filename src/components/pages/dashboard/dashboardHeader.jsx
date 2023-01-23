@@ -31,7 +31,7 @@ function DashboardHeader() {
             id={"dashboard-header"}
         >
             <div id="tuy">
-                <img id="tuy-logo" src="Tuy_Batangas.png" alt="Bayan ng Tuy sigil"/>
+                <img id="tuy-logo" src="san_jose_seal.png" alt="Barangay SanJose Seal"/>
                 <div
                     id="tuy-title"
                 >
@@ -57,6 +57,7 @@ function DashboardHeader() {
                     [ tabs.blotters, { title : "Blotters", noicon : true } ]
                 ])} />
                 <MainNavButtonDropdown title={"Audit"} children={new Map([
+                    [ tabs.receipt,  { title : "Receipts", noicon : true,  }],
                     [ tabs.loghistory,  { title : "Log History", noicon : true,  }],
                     [ tabs.appointmentTimestamps, { title : "Appointment Timestamps", noicon : true }]
                 ])} />

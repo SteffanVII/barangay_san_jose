@@ -14,6 +14,7 @@ import RequestsManagerTab from "./windows/tabs/requestsManagerTab";
 import BlottersTab from "./windows/tabs/blottersTab";
 import BannersManagerTab from "./windows/tabs/bannersManagerTab";
 import EventsTab from "./windows/tabs/eventsTab";
+import ReceiptTab from "./windows/tabs/receiptTab";
 
 export const tabs = {
     dashboard : 1,
@@ -24,7 +25,8 @@ export const tabs = {
     events : 6,
     requestsManager : 7,
     blotters : 8,
-    banners : 9
+    banners : 9,
+    receipt : 10
 }
 
 export const RdashboardDispatchTypes = {
@@ -50,6 +52,10 @@ function Rdashboard( state, action ) {
                     break;
                 case tabs.loghistory:
                     state.windowcomp = <WindowComponent title={"Audit"} tabs={new Map([
+                        [tabs.receipt, {
+                            title : "Receipts",
+                            component : <ReceiptTab/>
+                        }],
                         [tabs.loghistory, {
                             title : "History",
                             component : <LogHistoryTab/>
@@ -57,12 +63,15 @@ function Rdashboard( state, action ) {
                         [tabs.appointmentTimestamps, {
                             title : "Timestamps",
                             component : <TimestampsTab/>
-                        }]
-
+                        }],
                     ])}/>
                     break;
                 case tabs.appointmentTimestamps:
                     state.windowcomp = <WindowComponent title={"Audit"} tabs={new Map([
+                        [tabs.receipt, {
+                            title : "Receipts",
+                            component : <ReceiptTab/>
+                        }],
                         [tabs.loghistory, {
                             title : "History",
                             component : <LogHistoryTab/>
@@ -70,8 +79,23 @@ function Rdashboard( state, action ) {
                         [tabs.appointmentTimestamps, {
                             title : "Timestamps",
                             component : <TimestampsTab/>
-                        }]
-
+                        }],
+                    ])}/>
+                    break;
+                case tabs.receipt:
+                    state.windowcomp = <WindowComponent title={"Audit"} tabs={new Map([
+                        [tabs.receipt, {
+                            title : "Receipts",
+                            component : <ReceiptTab/>
+                        }],
+                        [tabs.loghistory, {
+                            title : "History",
+                            component : <LogHistoryTab/>
+                        }],
+                        [tabs.appointmentTimestamps, {
+                            title : "Timestamps",
+                            component : <TimestampsTab/>
+                        }],
                     ])}/>
                     break;
                     

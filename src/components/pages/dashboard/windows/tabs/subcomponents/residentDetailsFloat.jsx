@@ -88,7 +88,7 @@ function ResidentDetailsFloat(props) {
                             </div>
                             <div className="details-column">
                                 <span className="details-column-label">Birthdate</span>
-                                <span className="details-column-value">{ (props.data.bdate !== null ? monthsMap.get(props.data.bdate.split("-")[1]) + " " + props.data.bdate.split("-")[2].split("T")[0] + ", " + props.data.bdate.split("-")[0] : "No data")}</span>
+                                <span className="details-column-value">{ (props.data.bdate !== null ? monthsMap.get(parseInt(props.data.bdate.split("-")[1])) + " " + props.data.bdate.split("-")[2].split("T")[0] + ", " + props.data.bdate.split("-")[0] : "No data")}</span>
                             </div>
                             <div className="details-column">
                                 <span className="details-column-label">Birthplace</span>

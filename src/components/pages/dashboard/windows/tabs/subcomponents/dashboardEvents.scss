@@ -1,0 +1,75 @@
+.events-dashboard {
+
+    position: relative;
+
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    gap: 10px;
+
+    width: 100%;
+    height: 100%;
+
+    .events-dashboard-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-left: auto;
+        margin-right: 20px;
+    }
+
+    .events-container {
+
+        display: flex;
+        flex-flow: column;
+        gap: 10px;
+
+        width: 100%;
+        height: 500px;
+
+        padding-right: 10px;
+
+        overflow-y: auto;
+
+        .dashboard-event-card {
+
+            display: flex;
+            flex-flow: column;
+            gap: 10px;
+
+            width: 100%;
+            padding: 15px;
+
+            border-radius: 5px;
+
+            background-color: rgb(128, 224, 128);
+
+            .dashboard-event-card-top {
+                display: flex;
+                flex-flow: column;
+                gap: 10px;
+
+                .event-title {
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+
+                    font-weight: 700;
+                }
+
+                .event-date {
+                    width: fit-content;
+
+                    padding: 10px;
+
+                    border-radius: 4px;
+                    background-color: #4c4c4c;
+                    color: white;
+                    font-size: 0.7rem;
+                }
+
+                .event-about {
+
+                }
+            }
+        }
+    }
+
+}

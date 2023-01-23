@@ -1,3 +1,5 @@
+@import "../../../../../../sass/mediaqueries";
+
 .request-viewer {
     position: relative;
                 
@@ -251,6 +253,23 @@
         }
 
         background-color: transparent;
+
+        @include w1420 {
+            flex-flow: row;
+            flex-wrap: wrap;
+            gap: 10px;
+            grid-row: 1 / 2;
+
+            .request-info-wrapper {
+                padding: 10px;
+                border: 1px solid gray;
+                border-radius: 4px;
+            }
+
+            .request-actions-container {
+                margin-left: auto;
+            }
+        }
     }
 
 }
