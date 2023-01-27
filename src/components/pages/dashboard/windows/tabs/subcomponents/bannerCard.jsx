@@ -40,7 +40,7 @@ function BannerCard( props ) {
                     <label htmlFor={`live-checkbox-${props.data.filename}`}>Live</label>
                 </div>
             </div>
-            <img src={`http://localhost:5000/serve/${props.data.path}`} alt={props.data.filename} loading={"lazy"} />
+            <img src={props.data.path} alt={props.data.filename} loading={"lazy"} />
         </div>
     );
 }

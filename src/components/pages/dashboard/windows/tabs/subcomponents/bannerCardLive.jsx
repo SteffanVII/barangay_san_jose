@@ -11,9 +11,9 @@ function BannerCardLive( props ) {
 
     return (
         <div className="live-banner-card">
-            <img src={`http://localhost:5000/serve/${props.data.path}`} alt={props.data.filename} loading="lazy"/>
+            <img src={props.data.path} alt={props.data.filename} loading="lazy"/>
             <div className="banner-live-btns-container">
-                <span>{props.data.filename}</span>
+                <span title={props.data.filename} >{props.data.filename}</span>
                 {/* <button type="button" className="unlive-btn"
                         onClick={() => {
                             props.data.live = 0;

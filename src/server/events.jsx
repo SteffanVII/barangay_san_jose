@@ -2,7 +2,7 @@ export function getEvents( callback ) {
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open( 'GET', 'http://localhost:5000/events/get' );
+    xhr.open( 'GET', process.env.REACT_APP_API_URL + '/events/get' );
     xhr.withCredentials = true;
     xhr.onreadystatechange = () => {
         if ( xhr.readyState === 4 && xhr.status === 200 ) {
@@ -19,7 +19,7 @@ export function addEvent( data, callback ) {
 
     console.log(data);
 
-    xhr.open('POST', 'http://localhost:5000/events/post');
+    xhr.open('POST', process.env.REACT_APP_API_URL + '/events/post');
     xhr.withCredentials = true;
     xhr.setRequestHeader('content-type', 'application/json');
     xhr.onreadystatechange = () => {
@@ -35,7 +35,7 @@ export function removeEvent( data, callback ) {
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open('DELETE', 'http://localhost:5000/events/delete');
+    xhr.open('DELETE', process.env.REACT_APP_API_URL + '/events/delete');
     xhr.withCredentials = true;
     xhr.setRequestHeader('content-type', 'application/json');
     xhr.onreadystatechange = () => {
@@ -51,7 +51,7 @@ export function updateEvent( data, callback ) {
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open('PATCH', 'http://localhost:5000/events/update');
+    xhr.open('PATCH', process.env.REACT_APP_API_URL + '/events/update');
     xhr.withCredentials = true;
     xhr.setRequestHeader('content-type', 'application/json');
     xhr.onreadystatechange = () => {

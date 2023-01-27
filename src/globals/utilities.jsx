@@ -10,7 +10,7 @@ export function parseCookie() {
 
     cookie.split(/\s*;\s*/).forEach( s => {
         s = s.split("=");
-        o[s[0]] = JSON.parse(decodeURIComponent(s[1]));
+        o[s[0]] = decodeURIComponent(s[1]);
     });
 
     return o;
@@ -63,7 +63,7 @@ export function generateBarangayClearance( data ) {
 
     let xhr = new XMLHttpRequest();
     
-    xhr.open("GET", "http://localhost:3000/BARANGAY-CLEARANCE.pdf");
+    xhr.open("GET", "https://barangaysanjose.website/BARANGAY-CLEARANCE.pdf");
     xhr.responseType = "arraybuffer";
     xhr.onreadystatechange = async () => {
         if ( xhr.readyState === 4 && xhr.status === 200 ) {
@@ -99,7 +99,7 @@ export function generateBussinessClearance( data ) {
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open( "GET", "http://localhost:3000/BUSSINESS-PERMIT.pdf" );
+    xhr.open( "GET", "https://barangaysanjose.website/BUSSINESS-PERMIT.pdf" );
     xhr.responseType = "arraybuffer";
     xhr.onreadystatechange = async () => {
         if ( xhr.readyState === 4 && xhr.status === 200 ) {
@@ -138,7 +138,7 @@ export function generateResidency( data ) {
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open( "GET", "http://localhost:3000/CERTIFICATE-OF-RESIDENCY.pdf" );
+    xhr.open( "GET", "https://barangaysanjose.website/CERTIFICATE-OF-RESIDENCY.pdf" );
     xhr.responseType = 'arraybuffer';
     xhr.onreadystatechange = async () => {
         if ( xhr.readyState === 4 && xhr.status === 200 ) {

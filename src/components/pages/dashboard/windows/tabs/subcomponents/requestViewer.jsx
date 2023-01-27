@@ -6,6 +6,7 @@ import { generateBarangayClearance, generateBussinessClearance, generateResidenc
 import { changeDocumentRequestStatus, getDocumentRequestInfo } from "../../../../../../server/requests";
 import { requestsManagerTabContext } from "../requestsManagerTab";
 import { parseType } from "./requestCard";
+import emailjs from "emailjs-com";
 
 import "./requestViewer.scss";
 
@@ -146,12 +147,44 @@ function RequestViewer( props ) {
                             changeDocumentRequestStatus( data.id, 1, () => {
                                 refresh()
                                 tabContext.refreshList();
+
+                                if ( data.email !== "" ) {
+                                    emailjs.send( process.env.REACT_APP_SERVICE_ID, process.env.REACT_APP_PROCESS_TEMPLATE_ID, {
+                                        to_name : data.name,
+                                        id : data.id,
+                                        to_email : data.email,
+                                        type : parseType(data.type),
+                                    }, process.env.REACT_APP_EMAILJS_PUBLIC_KEY );
+                                }
+
                             } )
                         }
                         else if ( confirm === "ready" ) {
                             changeDocumentRequestStatus( data.id, 2, () => {
                                 refresh();
                                 tabContext.refreshList();
+
+                                if ( data.email !== "" ) {
+                                    // emailjs.send( process.env.REACT_APP_SERVICE_ID, process.env.REACT_APP_READY_TEMPLATE_ID, {
+                                    //     to_name : data.name,
+                                    //     id : data.id,
+                                    //     to_email : data.email,
+                                    //     type : parseType(data.type),
+                                    // }, process.env.REACT_APP_EMAILJS_PUBLIC_KEY );
+                                    window.Email.send({
+                                        Host : "smtp.gmail.com",
+                                        Username : "abaochrisjay@gmail.com",
+                                        Password : "akosichrisjay",
+                                        To : data.email,
+                                        From : "abaochrisjay@gmail.com",
+                                        Subject : "Barangay SanJose Request Status Notification",
+                                        Body : `Hey! ${data.name}.\n
+                                                Your request "${data.id}" ${parseType(data.type)} is now ready for pickup.\n
+                                                Thank you!`
+                                    }).then( () => {
+                                        console.log("success");
+                                    } );
+                                }
                             } )
                         }
                         else if ( confirm === "pickedup" ) {

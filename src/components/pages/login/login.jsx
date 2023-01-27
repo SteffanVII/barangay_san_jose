@@ -15,7 +15,7 @@ function LoginPage() {
 
     useLayoutEffect(() => {
         authenticate( (response) => {
-            if ( response.status == "ok" ) {
+            if ( response.email ) {
                 redirect("/");
             }
         } );
@@ -43,7 +43,7 @@ function LoginPage() {
                         event.preventDefault();
                         resetErr();
                         login( form.current.loginemail.value, form.current.loginpassword.value, ( response ) => {
-                            if ( response.status === "ok" ) {
+                            if ( response.email ) {
                                 redirect( "/" );
                             } else {
                                 if ( response.status === "invalid email" ) {

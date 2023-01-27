@@ -3,7 +3,7 @@ export function getDocumentRequestsList( query, callback ) {
 
     let params = `?type=${query.controller.type}&status=${query.controller.status}&searchtype=${query.controller.searchtype}&searchvalue=${query.controller.searchvalue}`;
 
-    xhr.open( "GET", "http://localhost:5000/requests/requestslist" + params);
+    xhr.open( "GET", process.env.REACT_APP_API_URL + "/requests/requestslist" + params);
     xhr.withCredentials = true;
     xhr.onreadystatechange = () => {
         if ( xhr.status === 200 && xhr.readyState === 4 ) {
@@ -18,7 +18,7 @@ export function getDocumentRequestInfo( id, callback ) {
 
     let params = `?id=${id}`;
 
-    xhr.open( "GET", "http://localhost:5000/requests/requestinfo" + params );
+    xhr.open( "GET", process.env.REACT_APP_API_URL + "/requests/requestinfo" + params );
     xhr.withCredentials = true;
     xhr.onreadystatechange = () => {
         if ( xhr.status === 200 && xhr.readyState === 4 ) {
@@ -34,7 +34,7 @@ export function changeDocumentRequestStatus( id, status, callback ) {
 
     let params = `?statusTo=${status}&id=${id}`;
 
-    xhr.open( "PATCH", "http://localhost:5000/requests/changeStatus" + params );
+    xhr.open( "PATCH", process.env.REACT_APP_API_URL + "/requests/changeStatus" + params );
     xhr.withCredentials = true;
     xhr.onreadystatechange = () => {
         if ( xhr.status === 204 && xhr.readyState === 4 ) {

@@ -83,10 +83,12 @@ function BannersManagerTab() {
 
     function refresh() {
         getBanners( ( res ) => {
-            bannersManagerTabDispatch({
-                type : bannersManagerTabActionTypes.SETRESULTS,
-                payload : res
-            });
+            dashboardContext.timeoutRedirect( res, () => {
+                bannersManagerTabDispatch({
+                    type : bannersManagerTabActionTypes.SETRESULTS,
+                    payload : res
+                });
+            } )
         } )
     }
 

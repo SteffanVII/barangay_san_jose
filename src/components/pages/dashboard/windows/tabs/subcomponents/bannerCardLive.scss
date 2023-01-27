@@ -41,8 +41,7 @@
         padding: 10px;
 
         span {
-            width: fit-content;
-            max-width: 100%;
+            max-width: fit-content;
             height: fit-content;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -50,11 +49,17 @@
 
             padding: 5px;
             border-radius: 3px;
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.8);
             color: black;
 
             font-size: 12px;
 
+
+            &:hover {
+                text-overflow:initial;
+                white-space:pre-wrap;
+                overflow: visible;
+            }
         }
 
         .unlive-btn {

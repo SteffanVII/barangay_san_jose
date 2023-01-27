@@ -17,7 +17,7 @@ function bannersReducer( state, action ) {
 
             state.paths = action.payload;
             console.log(action.payload);
-            state.imgs = Array.from(state.paths).map( e => <img src={`http://localhost:5000/serve/${e.path}`} alt={e.filename} loading={"lazy"} /> );
+            state.imgs = Array.from(state.paths).map( e => <img src={e.path} alt={e.filename} loading={"lazy"} /> );
 
             return {...state};
 

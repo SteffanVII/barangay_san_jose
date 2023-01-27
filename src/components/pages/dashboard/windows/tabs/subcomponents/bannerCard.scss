@@ -19,15 +19,15 @@
         transition: background-color 0.2s;
 
         span {
-            display: inline-block;
+            display: inline;
 
             padding: 5px;
             padding-left: 10px;
             padding-right: 10px;
 
-            width: fit-content;
-            max-width: 100%;
+            max-width: fit-content;
             border-radius: 3px;
+
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
@@ -37,6 +37,12 @@
             background-color: white;
 
             transition: color 0.2s;
+
+            &:hover {
+                text-overflow:initial;
+                white-space:pre-wrap;
+                overflow: visible;
+            }
         }
 
         &.live {

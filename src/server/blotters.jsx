@@ -3,7 +3,7 @@ export function getBlotters( args, callback ) {
 
     const xhr = new XMLHttpRequest();
 
-    xhr.open("GET", `http://localhost:5000/blotters/getblotters?searchtype=${args.searchtype}&searchvalue=${args.searchvalue}&status=${args.status}&offset=${args.offset}&order=${args.order}`);
+    xhr.open("GET", process.env.REACT_APP_API_URL + `/blotters/getblotters?searchtype=${args.searchtype}&searchvalue=${args.searchvalue}&status=${args.status}&offset=${args.offset}&order=${args.order}`);
     xhr.withCredentials = true;
     xhr.onreadystatechange = () => {
         if ( xhr.status === 200 && xhr.readyState === 4 ) {
@@ -18,7 +18,7 @@ export function getBlotterInfo( id, callback ) {
 
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', `http://localhost:5000/blotters/getblotterinfo?case=${id}`);
+    xhr.open('GET', process.env.REACT_APP_API_URL + `/blotters/getblotterinfo?case=${id}`);
     xhr.withCredentials = true;
     xhr.onreadystatechange = () => {
         if ( xhr.status === 200 && xhr.readyState === 4 ) {
@@ -33,7 +33,7 @@ export function patchBlotterInfo( data, callback ) {
 
     const xhr = new XMLHttpRequest();
 
-    xhr.open('PATCH', `http://localhost:5000/blotters/patchblotterinfo`);
+    xhr.open('PATCH', process.env.REACT_APP_API_URL + `/blotters/patchblotterinfo`);
     xhr.withCredentials = true;
     xhr.setRequestHeader("content-type", 'application/json');
     xhr.onreadystatechange = () => {
@@ -49,7 +49,7 @@ export function deleteBlotterInfo(  caseno, callback ) {
 
     const xhr = new XMLHttpRequest();
 
-    xhr.open('DELETE', `http://localhost:5000/blotters/deleteblotterinfo?caseno=${caseno}`);
+    xhr.open('DELETE', process.env.REACT_APP_API_URL + `/blotters/deleteblotterinfo?caseno=${caseno}`);
     xhr.withCredentials = true;
     xhr.onreadystatechange = () => {
         if ( xhr.status === 200 && xhr.readyState === 4 ) {
@@ -64,7 +64,7 @@ export function registerBlotter( data, callback ) {
 
     const xhr = new XMLHttpRequest();
 
-    xhr.open( 'POST', `http://localhost:5000/blotters/registerblotter` );
+    xhr.open( 'POST', process.env.REACT_APP_API_URL + `/blotters/registerblotter` );
     xhr.withCredentials = true;
     xhr.setRequestHeader("content-type", "application/json");
     xhr.onreadystatechange = () => {

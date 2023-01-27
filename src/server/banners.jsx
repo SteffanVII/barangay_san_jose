@@ -6,7 +6,7 @@ export function uploadBanner( file, callback ) {
     let formdata = new FormData();
     formdata.append("banner", file);
 
-    xhr.open( "POST", "http://localhost:5000/banners/upload" );
+    xhr.open( "POST", process.env.REACT_APP_API_URL + "/banners/upload" );
     xhr.withCredentials = true;
     // xhr.setRequestHeader("content-type", "multipart/form-data");
     xhr.onreadystatechange = () => {
@@ -22,7 +22,7 @@ export function getBanners( callback ) {
     
     let xhr = new XMLHttpRequest();
 
-    xhr.open( "GET", "http://localhost:5000/banners/getbanners" );
+    xhr.open( "GET", process.env.REACT_APP_API_URL + "/banners/getbanners" );
     xhr.withCredentials = true;
     xhr.onreadystatechange = () => {
         if ( xhr.readyState === 4 && xhr.status === 200 ) {
@@ -37,7 +37,7 @@ export function updateBannerStatus( data, callback ) {
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open( "PATCH", "http://localhost:5000/banners/updatestatus" );
+    xhr.open( "PATCH", process.env.REACT_APP_API_URL + "/banners/updatestatus" );
     xhr.withCredentials = true;
     xhr.setRequestHeader( "content-type", "application/json" );
     xhr.onreadystatechange = () => {
@@ -53,7 +53,7 @@ export function deleteBanner( data, callback ) {
 
     let xhr =new XMLHttpRequest();
 
-    xhr.open( "DELETE", "http://localhost:5000/banners/deletebanner" );
+    xhr.open( "DELETE", process.env.REACT_APP_API_URL + "/banners/deletebanner" );
     xhr.withCredentials = true;
     xhr.setRequestHeader( "content-type", "application/json" );
     xhr.onreadystatechange = () => {
@@ -68,7 +68,7 @@ export function deleteBanner( data, callback ) {
 export function repositionBanners( data, callback ) {
 
     let xhr = new XMLHttpRequest();
-    xhr.open( "PATCH", "http://localhost:5000/banners/reposition" );
+    xhr.open( "PATCH", process.env.REACT_APP_API_URL + "/banners/reposition" );
     xhr.withCredentials = true;
     xhr.setRequestHeader( "content-type", "application/json" );
     xhr.onreadystatechange = () => {
@@ -83,7 +83,7 @@ export function repositionBanners( data, callback ) {
 export function fetchBanners( callback ) {
     let xhr = new XMLHttpRequest();
 
-    xhr.open( "GET", "http://localhost:5000/public/fetchbanners" );
+    xhr.open( "GET", process.env.REACT_APP_API_URL + "/public/fetchbanners" );
     xhr.onreadystatechange = () => {
         if ( xhr.readyState === 4 ) callback( xhr.status, JSON.parse(xhr.response) );
     }

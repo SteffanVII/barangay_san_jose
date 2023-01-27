@@ -1,5 +1,6 @@
 import { useContext, useLayoutEffect, useState } from "react";
 import { dashboardContextImport } from "../../../../globals/contexts";
+import Timeout from "./tabs/subcomponents/timeoutChecker";
 import TabButton from "./tabs/tabButton";
 import "./windowComponent.scss";
 
@@ -29,6 +30,7 @@ function WindowComponent(props) {
             <div className="tabs-container">
                 { Array.from(props.tabs.keys()).some( i => getActiveTab()) ? props.tabs.get(getActiveTab()).component : null }
             </div>
+            <Timeout/>
         </section>
     );
 

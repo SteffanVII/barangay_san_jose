@@ -15,6 +15,8 @@ import BlottersTab from "./windows/tabs/blottersTab";
 import BannersManagerTab from "./windows/tabs/bannersManagerTab";
 import EventsTab from "./windows/tabs/eventsTab";
 import ReceiptTab from "./windows/tabs/receiptTab";
+import { useContext } from "react";
+import { appContextImport } from "../../../App";
 
 export const tabs = {
     dashboard : 1,
@@ -50,52 +52,60 @@ function Rdashboard( state, action ) {
                         }]
                     ])}/>;
                     break;
-                case tabs.loghistory:
-                    state.windowcomp = <WindowComponent title={"Audit"} tabs={new Map([
-                        [tabs.receipt, {
-                            title : "Receipts",
-                            component : <ReceiptTab/>
-                        }],
-                        [tabs.loghistory, {
-                            title : "History",
-                            component : <LogHistoryTab/>
-                        }],
-                        [tabs.appointmentTimestamps, {
-                            title : "Timestamps",
-                            component : <TimestampsTab/>
-                        }],
-                    ])}/>
-                    break;
-                case tabs.appointmentTimestamps:
-                    state.windowcomp = <WindowComponent title={"Audit"} tabs={new Map([
-                        [tabs.receipt, {
-                            title : "Receipts",
-                            component : <ReceiptTab/>
-                        }],
-                        [tabs.loghistory, {
-                            title : "History",
-                            component : <LogHistoryTab/>
-                        }],
-                        [tabs.appointmentTimestamps, {
-                            title : "Timestamps",
-                            component : <TimestampsTab/>
-                        }],
-                    ])}/>
-                    break;
+                // case tabs.loghistory:
+                //     state.windowcomp = <WindowComponent title={"Audit"} tabs={new Map([
+                //         [tabs.receipt, {
+                //             title : "Receipts",
+                //             component : <ReceiptTab/>
+                //         }],
+                //         [tabs.loghistory, {
+                //             title : "History",
+                //             component : <LogHistoryTab/>
+                //         }],
+                //         [tabs.appointmentTimestamps, {
+                //             title : "Timestamps",
+                //             component : <TimestampsTab/>
+                //         }],
+                //     ])}/>
+                //     break;
+                // case tabs.appointmentTimestamps:
+                //     state.windowcomp = <WindowComponent title={"Audit"} tabs={new Map([
+                //         [tabs.receipt, {
+                //             title : "Receipts",
+                //             component : <ReceiptTab/>
+                //         }],
+                //         [tabs.loghistory, {
+                //             title : "History",
+                //             component : <LogHistoryTab/>
+                //         }],
+                //         [tabs.appointmentTimestamps, {
+                //             title : "Timestamps",
+                //             component : <TimestampsTab/>
+                //         }],
+                //     ])}/>
+                //     break;
+                // case tabs.receipt:
+                //     state.windowcomp = <WindowComponent title={"Audit"} tabs={new Map([
+                //         [tabs.receipt, {
+                //             title : "Receipts",
+                //             component : <ReceiptTab/>
+                //         }],
+                //         [tabs.loghistory, {
+                //             title : "History",
+                //             component : <LogHistoryTab/>
+                //         }],
+                //         [tabs.appointmentTimestamps, {
+                //             title : "Timestamps",
+                //             component : <TimestampsTab/>
+                //         }],
+                //     ])}/>
+                //     break;
                 case tabs.receipt:
-                    state.windowcomp = <WindowComponent title={"Audit"} tabs={new Map([
+                    state.windowcomp = <WindowComponent title={"Transaction Records"} tabs={new Map([
                         [tabs.receipt, {
                             title : "Receipts",
                             component : <ReceiptTab/>
-                        }],
-                        [tabs.loghistory, {
-                            title : "History",
-                            component : <LogHistoryTab/>
-                        }],
-                        [tabs.appointmentTimestamps, {
-                            title : "Timestamps",
-                            component : <TimestampsTab/>
-                        }],
+                        }], 
                     ])}/>
                     break;
                     
@@ -183,6 +193,8 @@ function DashboardPage() {
 
     const redirect = useNavigate();
 
+    const appContext = useContext(appContextImport);
+
     useLayoutEffect(() => {
         authenticate( (response) => {
             if ( response.status == "ok" ) {
@@ -217,7 +229,7 @@ function DashboardPage() {
             },
             timeoutRedirect : ( value, callback ) => {
                 if ( value && value.status && value.status === "timeout" ) {
-                    redirect("/login");
+                    appContext.timeout.set(true);
                 } else {
                     callback();
                 }

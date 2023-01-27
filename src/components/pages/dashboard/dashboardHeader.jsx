@@ -43,25 +43,26 @@ function DashboardHeader() {
                 id="admin-container"
             >
                 <label htmlFor="admin-email">Barangay Admin</label>
-                <span id="admin-email">{ parseCookie().admin.email }</span>
+                <span id="admin-email">{parseCookie().admin}</span>
             </div>
             <nav id="main-nav">
-                <MainNavButton title={"Dashboard"} value={tabs.dashboard} />
-                <MainNavButton title={"Requests Manager"} value={tabs.requestsManager} />
-                <MainNavButtonDropdown title={"Content Manager"} children={new Map([
+                <MainNavButton title={"Dashboard"} value={tabs.dashboard} icon={"/dashboard.svg"} />
+                <MainNavButton title={"Requests Manager"} value={tabs.requestsManager} icon={"folder.svg"} />
+                <MainNavButtonDropdown title={"Content Manager"} icon={"/website-content.svg"} children={new Map([
                     [ tabs.banners, { title : "Banners", noicon : true } ],
                     [ tabs.events, { title : "Events", noicon : true } ]
                 ])}/>
-                <MainNavButtonDropdown title={"Records"} children={new Map([
+                <MainNavButtonDropdown title={"Records"} icon={"/reading-list.svg"} children={new Map([
                     [ tabs.residents, { title : "Residents", noicon : true } ],
                     [ tabs.blotters, { title : "Blotters", noicon : true } ]
                 ])} />
-                <MainNavButtonDropdown title={"Audit"} children={new Map([
+                {/* <MainNavButtonDropdown title={"Audit"} icon={"/calculator.svg"} children={new Map([
                     [ tabs.receipt,  { title : "Receipts", noicon : true,  }],
                     [ tabs.loghistory,  { title : "Log History", noicon : true,  }],
                     [ tabs.appointmentTimestamps, { title : "Appointment Timestamps", noicon : true }]
-                ])} />
-                <MainNavButton title={"Logout"} isFunction={true} function={() => {
+                ])} /> */}
+                <MainNavButton title={"Transaction Records"} value={tabs.receipt} icon={"/calculator.svg"} />
+                <MainNavButton title={"Logout"} icon={"/logout.svg"} isFunction={true} function={() => {
                     logout(() => {
                         redirect("/login");
                     })

@@ -1,0 +1,53 @@
+.timeout-float-container {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    gap: 20px;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: white;
+
+    img {
+        width: 300px;
+        height: 300px;
+    }
+
+    .timeout-message-wrapper {
+
+        display: flex;
+        flex-flow: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        max-width: 400px;
+        height: 100%;
+        max-height: 200px;
+
+        padding: 20px;
+        // border: 2px solid gray;
+        border-radius: 10px;
+
+        background-color: white;
+
+        button {
+            padding: 10px;
+        }
+
+    }
+
+    &.show {
+        display: flex;
+    }
+
+}

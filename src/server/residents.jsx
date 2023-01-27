@@ -27,7 +27,7 @@ export function getResidentsAll( query, callback ) {
         params += `&purok=${query.purok}`;
     }
 
-    xhr.open("GET", "http://localhost:5000/residents/getresidentsall" + params);
+    xhr.open("GET", process.env.REACT_APP_API_URL + "/residents/getresidentsall" + params);
     xhr.withCredentials = true;
     xhr.onreadystatechange = () => {
         if ( xhr.readyState === 4 && xhr.status === 200 ) {
@@ -41,7 +41,7 @@ export function registerResident( data, callback ) {
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open( "POST", "http://localhost:5000/residents/registerresident" );
+    xhr.open( "POST", process.env.REACT_APP_API_URL + "/residents/registerresident" );
     xhr.withCredentials = true;
     xhr.setRequestHeader("content-type", "application/json");
     xhr.onreadystatechange = () => {
@@ -57,7 +57,7 @@ export function updateResident( data, callback ) {
 
     let xhr = new XMLHttpRequest();
     
-    xhr.open( "PATCH", "http://localhost:5000/residents/updateresident" );
+    xhr.open( "PATCH", process.env.REACT_APP_API_URL + "/residents/updateresident" );
     xhr.withCredentials = true;
     xhr.setRequestHeader("content-type", "application/json");
     xhr.onreadystatechange = () => {
